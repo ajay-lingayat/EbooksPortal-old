@@ -103,13 +103,13 @@
                             <label for="id_firstname">
                                 Firstname
                             </label>
-                            <input type="text" name="firstname" placeholder="Firstname" autocomplete="off" class="form-control" id="id_firstname" required>
+                            {{ form.firstname }}
                         </div>
                         <div class="col">
                             <label for="id_lastname">
                                 Lastname
                             </label>
-                            <input type="text" name="lastname" placeholder="Lastname" autocomplete="off" class="form-control" id="id_lastname" required>
+                            {{ form.lastname }}
                         </div>
                     </div>
 
@@ -118,20 +118,20 @@
                             <label for="id_email">
                                 Email
                             </label>
-                            <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control" id="id_email" required>
+                            {{ form.email }}
                         </div>
                         <div class="col">
                             <label for="id_subject">
                                 Subject
                             </label>
-                            <input type="text" name="subject" placeholder="Subject" autocomplete="off" class="form-control" id="id_subject" required>
+                            {{ form.subject }}
                         </div>
                     </div>
 
                     <label for="id_message">
                         Message
                     </label>
-                    <textarea rows="10" class="form-control" placeholder="Message" required></textarea>
+                    {{ form.message }}
 
                     <button type="submit" class="btn btn-dark">
                         Submit

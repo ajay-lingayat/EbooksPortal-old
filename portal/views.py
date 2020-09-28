@@ -19,6 +19,8 @@ def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
 
+    form = ContactForm()
+
     obj = book_section.objects.all()
 
     counter = 0
@@ -64,6 +66,7 @@ def home( request ):
     bk_sections = pick3(lst)
 
     Context = {
+        'form': form,
         'nav_actives': nav_actives,
         'book_sections': bk_sections,
     }
