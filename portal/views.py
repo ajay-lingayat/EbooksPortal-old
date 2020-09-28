@@ -195,10 +195,10 @@ def profile(request):
 
        try:
            if update:
-              user.first_name = fname
-              user.last_name = lname
-              user.email = mail
-              user.username = uname
+              user.first_name = first_name
+              user.last_name = last_name
+              user.email = email
+              user.username = username
               user.save()
 
               messages.success(
