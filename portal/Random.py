@@ -11,7 +11,8 @@ def pick3( sections ):
            lst.append(section[0])
            lst.append(books)
         else:
-           lst.append(section)
-        new_sections.append(lst)
+           new_sections.append(section)
+        if lst:
+           new_sections.append(lst)
 
     return new_sections
