@@ -24,7 +24,7 @@ class paper_download(models.Model):
     )
 
     def __str__(self):
-        return self.paper
+        return self.paper.title
 
     class Meta:
         verbose_name = 'Paper Download'

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.template import loader
 from .models import *
 import requests
@@ -162,3 +162,24 @@ def open_portal(request, id_no):
             request
         )
     )
+
+
+def mark_download(request):
+
+    bk_id = request.GET.get('bk_id', None)
+    
+    ans = False
+
+    try:
+        if bk_id is not None:
+            bk = book.objects.get(id=bk_id)
+            obj = book_download.objects.create(book=bk)
+            obj.save()
+            ans = True
+    except Exception as e:
+        print(e)
+
+    data = {
+        'ans': ans,
+    }
+    return JsonResponse(data)

@@ -27,7 +27,7 @@ class book_download(models.Model):
     )
 
     def __str__(self):
-        return self.book
+        return self.book.title
 
     class Meta:
         verbose_name = 'Book Download'
