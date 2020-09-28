@@ -19,6 +19,12 @@ def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
 
+    bd = len(book_download.objects.all())
+    pd = len(paper_download.objects.all())
+    td = bd+pd
+
+    print(f'bd : {bd}, td : {td}, pd : {pd}')
+
     form = ContactForm()
 
     obj = book_section.objects.all()
@@ -69,6 +75,9 @@ def home( request ):
         'form': form,
         'nav_actives': nav_actives,
         'book_sections': bk_sections,
+        'book_downloads': bd,
+        'total_downloads': td,
+        'paper_downloads': pd,
     }
     t = loader.get_template('EbooksPortal/index.html')
     return HttpResponse(
