@@ -1,0 +1,191 @@
+
+{% extends 'account/base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+    Login | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/account/login.css' %}">
+{% endblock %}
+
+{% block navbar %}
+<div class="nav-container bg-dark">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+            
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                EbooksPortal
+            </a>
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="nav">
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a href="/" class="nav-link">
+                            <span>
+                                Home
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/about" class="nav-link">
+                            <span>
+                                About
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/contact" class="nav-link">
+                            <span>
+                                Contact
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/books/all" class="nav-link">
+                            <span>
+                                Books
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/papers/all" class="nav-link">
+                            <span>
+                                Papers
+                            </span>
+                        </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                    <li class="nav-item active">
+                        <a href="/admin" class="nav-link">
+                            <span>
+                                Admin Panel
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item active">
+                        <a href="/profile" class="nav-link">
+                            <span>
+                                {{ user.first_name }}
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/accounts/logout" class="nav-link">
+                            <span>
+                                logout
+                            </span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item active">
+                        <a href="#login" class="nav-link">
+                            <span class="active">
+                                Sign In
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/accounts/signup" class="nav-link">
+                            <span>
+                                Sign Up
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+            </div>
+
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block form_errors %}
+    {% for i in form.non_field_errors %}
+    <div class="container">
+            <div class="alert alert-warning" role="alert">
+                {{ i }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+<section class="login bg-light" id="login">
+
+    <h1 class="text-center">
+        Welcome Back!
+    </h1>
+
+    <div class="container justify-content-center">
+
+        <form name="frm" action="{% url 'account_login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <a href="{% provider_login_url 'google' %}">
+                    Login with Google
+                </a>
+                
+                <label for="id_login">
+                    Username
+                </label>
+                {{ form.login }}
+                {% for i in form.login.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <label for="id_password">
+                    Password
+                </label>
+                {{ form.password }}
+                {% for i in form.password.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <br>
+
+                <a href="{% url 'account_reset_password' %}" class="lead">
+                    Forgot Password
+                </a>
+                <br>
+
+                {{ form.remember }}
+
+                <button type="submit" class="btn btn-dark btn-block">
+                    Login
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static '/js/account/login.js' %}"></script>
+{% endblock %}

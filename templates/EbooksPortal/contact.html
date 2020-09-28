@@ -1,0 +1,75 @@
+
+{% extends 'EbooksPortal/base.html' %}
+{% load static %}
+
+{% block title %}
+    Contact | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/EbooksPortal/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact bg-light" id="contact">
+
+    <h1 class="text-center">
+        Contact Us
+    </h1>
+
+    <div class="container justify-content-center">
+
+        <form name="frm" action="/contact" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="id_firstname" data-text="{{ firstname }}">
+                            Firstname
+                        </label>
+                        {{ form.firstname }}
+                    </div>
+                    <div class="col">
+                        <label for="id_lastname" data-text="{{ lastname }}">
+                            Lastname
+                        </label>
+                        {{ form.lastname }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="id_email" data-text="{{ email }}">
+                            Email
+                        </label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col">
+                        <label for="id_subject" data-text="{{ subject }}">
+                            Subject
+                        </label>
+                        {{ form.subject }}
+                    </div>
+                </div>
+
+                <label for="id_message" data-text="{{ message }}">
+                    Message
+                </label>
+                {{ form.message }}
+
+                <button type="submit" class="btn btn-dark">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="{% static '/js/EbooksPortal/contact.js' %}"></script>
+{% endblock %}

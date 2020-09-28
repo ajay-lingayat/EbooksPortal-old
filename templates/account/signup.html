@@ -1,0 +1,232 @@
+
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block title %}
+    Sign Up | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/account/signup.css' %}">
+{% endblock %}
+
+{% block navbar %}
+<div class="nav-container bg-dark">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+            
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                EbooksPortal
+            </a>
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="nav">
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a href="/" class="nav-link">
+                            <span>
+                                Home
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/about" class="nav-link">
+                            <span>
+                                About
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/contact" class="nav-link">
+                            <span>
+                                Contact
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/books/all" class="nav-link">
+                            <span>
+                                Books
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/papers/all" class="nav-link">
+                            <span>
+                                Papers
+                            </span>
+                        </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <li class="nav-item active">
+                        <a href="/admin" class="nav-link">
+                            <span>
+                                Admin Panel
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item active">
+                        <a href="/profile" class="nav-link">
+                            <span>
+                                {{ user.first_name }}
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="/accounts/logout" class="nav-link">
+                            <span>
+                                logout
+                            </span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item active">
+                        <a href="/accounts/login" class="nav-link">
+                            <span>
+                                Sign In
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#signup" class="nav-link">
+                            <span class="active">
+                                Sign Up
+                            </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                
+            </div>
+
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block form_errors %}
+    {% for i in form.non_field_errors %}
+    <div class="container">
+            <div class="alert alert-warning" role="alert">
+                {{ i }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+<section class="signup bg-light" id="signup">
+
+    <h1 class="text-center">
+        Create Account
+    </h1>
+
+    <div class="container justify-content-center">
+
+        <form name="frm" action="{% url 'account_signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="id_first_name">
+                            Firstname
+                        </label>
+                        {{ form.first_name }}
+                        {% for i in form.first_name.errors %}
+                            <p class="err">
+                                {{ i }}
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <label for="id_last_name">
+                            Lastname
+                        </label>
+                        {{ form.last_name }}
+                        {% for i in form.last_name.errors %}
+                            <p class="err">
+                                {{ i }}
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                
+                <label for="id_username">
+                    Username
+                </label>
+                {{ form.username }}
+                {% for i in form.username.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+                
+                <label for="id_email">
+                    Email
+                </label>
+                {{ form.email }}
+                {% for i in form.email.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <label for="id_password1">
+                    Password
+                </label>
+                {{ form.password1 }}
+                {% for i in form.password1.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <label for="id_password2">
+                    Confirm Password
+                </label>
+                {{ form.password2 }}
+                {% for i in form.password2.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+
+                {{ form.captcha }}
+                {% for i in form.captcha.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-dark btn-block">
+                    Sign Up
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static '/js/account/signup.js' %}"></script>
+{% endblock %}

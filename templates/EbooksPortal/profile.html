@@ -1,0 +1,65 @@
+
+{% extends 'EbooksPortal/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ user.username }} | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/EbooksPortal/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile bg-light" id="profile">
+
+    <h1 class="text-center">
+        My Profile
+    </h1>
+
+    <div class="container justify-content-center">
+
+        <form name="frm" action="/profile" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="id_firstname" data-text="{{ first_name }}">
+                            Firstname
+                        </label>
+                        {{ form.firstname }}
+                    </div>
+                    <div class="col">
+                        <label for="id_lastname" data-text="{{ last_name }}">
+                            Lastname
+                        </label>
+                        {{ form.lastname }}
+                    </div>
+                </div>
+
+                <label for="id_email" data-text="{{ email }}">
+                    Email
+                </label>
+                {{ form.email }}
+
+                <label for="id_subject" data-text="{{ username }}">
+                    Username
+                </label>
+                    {{ form.username }}
+
+                <button type="submit" class="btn btn-dark">
+                    Submit
+                </button>
+
+            </div>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="{% static '/js/EbooksPortal/profile.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,126 @@
+
+
+{% extends 'EbooksPortal/base.html' %}
+{% load static %}
+{% load books_filter %}
+
+{% block title %}
+    Books | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/EbooksPortal/query_books.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <br>
+
+    <div class="container">
+        <form action="/books/" method="GET">
+            <div class="input-group">
+                <input type="search" name="q" id="search" placeholder="search" class="form-control" value="{{ query }}" required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-dark">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="album py-5 bg-light">
+
+        <div class="container">
+            <div class="row">
+                
+                {% for book in books %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ book.0.image|lnk_filter }}" class="card-img-top">
+
+                        <div class="card-body">
+                            <p class="lead text-center">
+                                {{ book.0.title }}
+                            </p>
+
+                            <p class="lead">
+                                {% for tag in book.1 %}
+                                <a href="/book/?q={{ tag }}" class="badge badge-secondary">
+                                    {{ tag }}
+                                </a>
+                                {% endfor %}
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center">
+
+                                <div class="btn-group">
+                                    <a href="{{ book.0.attachment|lnk_filter }}" class="btn btn-sm btn-outline-secondary">
+                                        Download
+                                    </a>
+                                    <div onclick="copythis('https://ebooksportal.herokuapp.com/books/open-portal/{{ book.0.id }}')" class="btn btn-sm btn-outline-secondary">
+                                        Copy Link
+                                    </div>
+                                </div>
+
+                                <small class="text-muted">
+                                    {{ book.0.date }}
+                                </small>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+    {% if page %}
+        <div class="container-fluid">
+            <ul class="pagination justify-content-center">
+
+                {% if page.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page=1">
+                            &laquo; first
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ page.previous_page_number }}">
+                            prev
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <a class="page-link" href="?q={{ query }}&page={{ page.number }}">
+                        {{ page.number }}
+                    </a>
+                </li>
+
+                {% if page.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ page.next_page_number }}">
+                            next
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ page.paginator.num_pages }}">
+                            last &raquo;
+                        </a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static '/js/EbooksPortal/copy_lnk.js' %}"></script>
+{% endblock %}

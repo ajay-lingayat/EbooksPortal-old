@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Galada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@300&display=swap');
+
+
+.galada{
+	font-family: 'Baloo Tammudu 2', cursive;
+	margin-bottom: 20px;
+}
+
+.jumbotron{
+	margin-bottom: 0;
+	background-color: #fff;
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+}
+.text-muted{
+	color: #6c757d !important;
+}
+.jumbotron .lead{
+	font-size: 1.7rem;
+	font-weight: 300;
+}
+p{
+	margin-bottom: 1rem;
+	margin-top: 0;
+}
+p .btn{
+	font-size: x-large;
+}
+
+.badge{
+	padding: 5px 10px;
+}
+
+
+
+.contact{
+	width: 100%;
+	background-color: #fff;
+	padding-top: 50px;
+	padding-bottom: 10px;
+}
+.contact h1{
+	font-family: 'Baloo Tammudu 2', cursive;
+}
+.contact form{
+	width: 100%;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	font-size: large;
+}
+.contact form input, .contact form textarea{
+	margin-bottom: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

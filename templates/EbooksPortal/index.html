@@ -1,0 +1,148 @@
+
+{% extends 'EbooksPortal/base.html' %}
+{% load static %}
+{% load books_filter %}
+
+{% block title %}
+    EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/EbooksPortal/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+            
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    EbooksPortal
+                </h1>
+                <p class="lead text-muted">
+                    A hub for free Ebooks for computer science.
+                </p>
+                <p>
+                    <a href="/books" class="btn btn-info my-2">
+                        Explore More
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        {% for section in book_sections %}
+        <div class="album py-5 bg-light">
+
+            <h1 class="galada text-center">
+                {{ section.0.text }}
+            </h1>
+
+            <div class="container">
+                <div class="row">
+                    
+                    {% for book in section.1 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="{{ book.0.image|lnk_filter }}" class="card-img-top">
+
+                            <div class="card-body">
+                                <p class="lead text-center">
+                                    {{ book.0.title }}
+                                </p>
+
+                                <p class="lead">
+                                    {% for tag in book.1 %}
+                                    <a href="/books/?q={{ tag }}" class="badge badge-secondary">
+                                        {{ tag }}
+                                    </a>
+                                    {% endfor %}
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div class="btn-group">
+                                        <a href="{{ book.0.attachment|lnk_filter }}" class="btn btn-sm btn-outline-secondary">
+                                            Download
+                                        </a>
+                                        <div onclick="copythis('https://ebooksportal.herokuapp.com/books/open-portal/{{ book.0.id }}')" class="btn btn-sm btn-outline-secondary">
+                                            Copy Link
+                                        </div>
+                                    </div>
+
+                                    <small class="text-muted">
+                                        {{ book.0.date }}
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </main>
+
+    <section class="contact" id="contact">
+
+        <h1 class="text-center">
+            Contact Us
+        </h1>
+
+        <div class="container justify-content-center">
+
+            <form action="/contact" method="POST">
+                <div class="form-group">
+
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="id_firstname">
+                                Firstname
+                            </label>
+                            <input type="text" name="firstname" placeholder="Firstname" autocomplete="off" class="form-control" id="id_firstname" required>
+                        </div>
+                        <div class="col">
+                            <label for="id_lastname">
+                                Lastname
+                            </label>
+                            <input type="text" name="lastname" placeholder="Lastname" autocomplete="off" class="form-control" id="id_lastname" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="id_email">
+                                Email
+                            </label>
+                            <input type="email" name="email" placeholder="Email" autocomplete="off" class="form-control" id="id_email" required>
+                        </div>
+                        <div class="col">
+                            <label for="id_subject">
+                                Subject
+                            </label>
+                            <input type="text" name="subject" placeholder="Subject" autocomplete="off" class="form-control" id="id_subject" required>
+                        </div>
+                    </div>
+
+                    <label for="id_message">
+                        Message
+                    </label>
+                    <textarea rows="10" class="form-control" placeholder="Message" required></textarea>
+
+                    <button type="submit" class="btn btn-dark">
+                        Submit
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static '/js/EbooksPortal/copy_lnk.js' %}"></script>
+{% endblock %}
