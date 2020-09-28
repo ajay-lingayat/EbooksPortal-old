@@ -33,7 +33,7 @@ def all_books(request):
 
     paginator = Paginator(
         books,
-        per_page=10
+        per_page=12
     )
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -113,7 +113,7 @@ def query(request, query):
 
        paginator = Paginator(
            bks,
-           per_page=10
+           per_page=12
        )
        page_number = request.GET.get('page', 1)
        page = paginator.get_page(page_number)
