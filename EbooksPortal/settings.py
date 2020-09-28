@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'n71wkc_$55i#pgw!kjd67avryy!x4k@kn!c92n=7c-epzftyk4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,19 +89,34 @@ WSGI_APPLICATION = 'EbooksPortal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'EbooksPortal',
-        'USER': 'EbooksPortal',
-        'PASSWORD': 'portal@2',
-        'HOST': 'localhost',
-        'PORT': 3306,
-        'OPTIONS': {
-          'autocommit': True,
-        },
-    }
-}
+if DEBUG:
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.mysql',
+           'NAME': 'EbooksPortal',
+           'USER': 'EbooksPortal',
+           'PASSWORD': 'portal@2',
+           'HOST': 'localhost',
+           'PORT': 3306,
+           'OPTIONS': {
+           'autocommit': True,
+           },
+       }
+   }
+else:
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'd10cgvvg9u9gob',
+           'USER': 'zxcewnwvtfzupv',
+           'PASSWORD': 'd2ed36477672a75cd22b5eb7a70f0c04892eaaabfa73a249c29ea0f5c4b5c0c6',
+           'HOST': 'ec2-3-218-112-22.compute-1.amazonaws.com',
+           'PORT': 5432,
+           'OPTIONS': {
+           'autocommit': True,
+           },
+       }
+   }
 
 
 # Password validation
