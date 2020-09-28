@@ -210,7 +210,6 @@ SOCIALACCOUNT_PROVIDERS = {
          },
          'SCOPE': [
             'user',
-            'repo',
             'read:org',
         ],
    }
