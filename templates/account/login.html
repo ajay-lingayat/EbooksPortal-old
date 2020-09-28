@@ -135,15 +135,23 @@
         Welcome Back!
     </h1>
 
+    <br>
+
+    <div class="gl-container d-flex justify-content-center">
+        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark">
+            <span>G</span><span>O</span><span>O</span><span>G</span><span>L</span><span>E</span>
+        </a>
+        <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark">
+            <i class="fa fa-github"></i>
+            GITHUB
+        </a>
+    </div>
+
     <div class="container justify-content-center">
 
         <form name="frm" action="{% url 'account_login' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
-
-                <a href="{% provider_login_url 'google' %}">
-                    Login with Google
-                </a>
                 
                 <label for="id_login">
                     Username

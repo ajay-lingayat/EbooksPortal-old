@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
     'captcha',
 ]
 
@@ -201,16 +202,16 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
-    }
-#    'github': {
-#          'APP': {
-#              'client_id': 'eefe50c42fd26e0189bb',
-#              'secret': 'efa28a7c46e21db0e1a56ff21f734beb0d9ea55d'
-#          },
-#          'SCOPE': [
-#             'Ajay2810-hub',
-#             'ExamCouch',
-#             'read:org',
-#         ],
-#    }
+    },
+   'github': {
+         'APP': {
+             'client_id': '84154bec7e7ddea6afa0',
+             'secret': '83afebf6a0e5db72641426883b297badee559fad'
+         },
+         'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+   }
 }
