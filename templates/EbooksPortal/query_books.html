@@ -17,8 +17,9 @@
     <br>
 
     <div class="container">
-        <form action="/books/" method="GET">
+        <form action="/books/" method="POST">
             <div class="input-group">
+                {% csrf_token %}
                 <input type="search" name="q" id="search" placeholder="search" class="form-control" value="{{ query }}" required>
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-dark">
@@ -46,7 +47,7 @@
 
                             <p class="lead">
                                 {% for tag in book.1 %}
-                                <a href="/book/?q={{ tag }}" class="badge badge-secondary">
+                                <a href="/books/q/{{ tag }}" class="badge badge-secondary">
                                     {{ tag }}
                                 </a>
                                 {% endfor %}
@@ -84,31 +85,31 @@
 
                 {% if page.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page=1">
+                        <a class="page-link" href="?page=1">
                             &laquo; first
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page={{ page.previous_page_number }}">
+                        <a class="page-link" href="?page={{ page.previous_page_number }}">
                             prev
                         </a>
                     </li>
                 {% endif %}
 
                 <li class="page-item active">
-                    <a class="page-link" href="?q={{ query }}&page={{ page.number }}">
+                    <a class="page-link" href="?page={{ page.number }}">
                         {{ page.number }}
                     </a>
                 </li>
 
                 {% if page.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page={{ page.next_page_number }}">
+                        <a class="page-link" href="?page={{ page.next_page_number }}">
                             next
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?q={{ query }}&page={{ page.paginator.num_pages }}">
+                        <a class="page-link" href="?page={{ page.paginator.num_pages }}">
                             last &raquo;
                         </a>
                     </li>

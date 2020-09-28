@@ -52,7 +52,7 @@
 
                                 <p class="lead">
                                     {% for tag in book.1 %}
-                                    <a href="/books/?q={{ tag }}" class="badge badge-secondary">
+                                    <a href="/books/q/{{ tag }}" class="badge badge-secondary">
                                         {{ tag }}
                                     </a>
                                     {% endfor %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
 from .models import *
 import requests
@@ -52,12 +52,17 @@ def all_books(request):
     )
 
 
-def query(request):
+def text(request):
+    if request.method == "POST":
+       txt = request.POST['q']
+       return redirect(f'/books/q/{txt}')
+    else:
+       raise Http404('')
+
+def query(request, query):
     nav_actives = [None for i in range(7)]
-    nav_actives[3] = 'active'
 
     try:
-        query = request.GET.get('q')
         query = query.strip().lower()
     except Exception as e:
         print(e)
