@@ -20,7 +20,7 @@ body{
 }
 .login form{
 	width: 100%;
-	margin-top: 50px;
+	margin-top: 20px;
 	margin-bottom: 20px;
 	font-size: large;
 }
@@ -41,4 +41,23 @@ form a, form a:focus, form a:hover{
 
 form a{
 	margin-top: 20px;
+}
+
+.gl-container span:nth-child(1), .gl-container span:nth-child(4){
+	color: #4285F4;
+}
+.gl-container span:nth-child(2), .gl-container span:nth-child(6){
+	color: #EA4335;
+}
+.gl-container span:nth-child(3){
+	color: #FBBC05;
+}
+.gl-container span:nth-child(5){
+	color: #34A853;
+}
+.gl-container a{
+	font-size: x-large;
+}
+.gl-container a{
+	margin-left: 10px;
 }
