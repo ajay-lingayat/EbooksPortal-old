@@ -19,5 +19,9 @@ body{
 	font-family: 'Baloo Tammudu 2', cursive;
 }
 .box a, .box a:focus, .box a:hover{
-	color: #2c3e51;
+	color: #17a2b8;
+}
+.lead-text{
+    font-size: large;
+    padding: 0px 20px;
 }
