@@ -112,9 +112,6 @@ else:
            'PASSWORD': 'd2ed36477672a75cd22b5eb7a70f0c04892eaaabfa73a249c29ea0f5c4b5c0c6',
            'HOST': 'ec2-3-218-112-22.compute-1.amazonaws.com',
            'PORT': 5432,
-           'OPTIONS': {
-           'autocommit': True,
-           },
        }
    }
 
