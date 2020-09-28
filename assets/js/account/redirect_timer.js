@@ -1,3 +1,5 @@
 $(document).ready(function(){
-	setTimeout("location.href = '/accounts/login'",10000);
+	var element = document.getElementById('login_url');
+	login_url = element.getAttribute('login_url');
+	setTimeout("location.href = '"+login_url+"'",10000);
 });

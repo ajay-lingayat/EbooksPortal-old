@@ -92,6 +92,35 @@
 
     </main>
 
+    <section class="counter">
+
+            <div class="crcl bg-dark">
+                <div>
+                    Book Downloads
+                </div>
+                <p id="counter">
+                    {{ book_downloads }}
+                </p>
+            </div>
+            <div class="crcl bg-dark">
+                <div>
+                    Total Downloads
+                </div>
+                <p id="counter1">
+                    {{ total_downloads }}
+                </p>
+            </div>
+            <div class="crcl bg-dark">
+                <div>
+                    Paper Downloads
+                </div>
+                <p id="counter2">
+                    {{ paper_downloads }}
+                </p>
+            </div>
+
+    </section>
+
     <section class="contact" id="contact">
 
         <h1 class="text-center">
@@ -152,6 +181,8 @@
 
 {% block scripts %}
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.counterup/1.0/jquery.counterup.min.js"></script>
     <script src="{% static '/js/EbooksPortal/copy_lnk.js' %}"></script>
     <script src="{% static '/js/EbooksPortal/mark_download.js' %}"></script>

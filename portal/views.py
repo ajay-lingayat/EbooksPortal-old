@@ -23,8 +23,6 @@ def home( request ):
     pd = len(paper_download.objects.all())
     td = bd+pd
 
-    print(f'bd : {bd}, td : {td}, pd : {pd}')
-
     form = ContactForm()
 
     obj = book_section.objects.all()

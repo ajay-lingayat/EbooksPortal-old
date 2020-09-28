@@ -33,6 +33,32 @@ p .btn{
 }
 
 
+.counter{
+	background: #fff;
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 50px;
+}
+.counter .crcl{
+	padding: 20px 20px 0px 20px !important;
+	width: 250px;
+	color: #fff !important;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+.counter .crcl div{
+	font-size: large;
+	text-align: center;
+}
+.counter .crcl p{
+	text-align: center;
+	margin-top: 10px;
+	font-size: xx-large;
+}
+
 
 .contact{
 	width: 100%;
