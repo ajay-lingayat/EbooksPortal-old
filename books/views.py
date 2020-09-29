@@ -46,7 +46,7 @@ def all_books(request):
         'books': page.object_list,
         'page': page,
     }
-    t = loader.get_template('EbooksPortal/all_books.html')
+    t = loader.get_template('books/all_books.html')
     return HttpResponse(
         t.render(
             Context,
@@ -60,7 +60,7 @@ def text(request):
        txt = request.POST['q']
        return redirect(f'/books/q/{txt}')
     else:
-       raise Http404('')
+       raise Http404()
 
 def query(request, query):
     nav_actives = [None for i in range(7)]
@@ -130,7 +130,7 @@ def query(request, query):
            'page': page,
            'query': query,
        }       
-       t = loader.get_template('EbooksPortal/query_books.html')
+       t = loader.get_template('books/query_books.html')
        return HttpResponse(
            t.render(
                Context,
@@ -144,34 +144,37 @@ def query(request, query):
 
 def open_portal(request, id_no):
 
-    obj = book.objects.get(id=id_no)
+    if book.objects.filter(id=id_no).exists():
+        obj = book.objects.get(id=id_no)
 
-    bk = [obj, []]
+        bk = [obj, []]
 
-    dowloads = len(book_download.objects.filter(book=obj.id))
-    bk.append(dowloads)
+        dowloads = len(book_download.objects.filter(book=obj.id))
+        bk.append(dowloads)
 
-    tags_lnk = obj.tags.replace('blob', 'raw')
+        tags_lnk = obj.tags.replace('blob', 'raw')
 
-    r = requests.get(tags_lnk)
+        r = requests.get(tags_lnk)
 
-    if r.status_code == 200:
-        r = r.text
-        r = r.split('\n')
-        for tag in r:
-            if tag.replace(' ', ''):
-                bk[1].append(tag)
-    
-    Context = {
-        'book': bk,
-    }
-    t = loader.get_template('EbooksPortal/open_portal.html')
-    return HttpResponse(
-        t.render(
-            Context,
-            request
+        if r.status_code == 200:
+            r = r.text
+            r = r.split('\n')
+            for tag in r:
+                if tag.replace(' ', ''):
+                    bk[1].append(tag)
+        
+        Context = {
+            'book': bk,
+        }
+        t = loader.get_template('books/open_portal.html')
+        return HttpResponse(
+            t.render(
+                Context,
+                request
+            )
         )
-    )
+    else:
+        raise Http404()
 
 
 def mark_download(request):

@@ -1,0 +1,55 @@
+*{
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+html, body{
+	height: 100%;
+}
+
+.navbar-toggler:focus{
+	outline: none;
+}
+.nav-link span{
+	padding: 10px;
+	border-radius: 1px;
+}
+.nav-link .active{
+	background: #fff;
+	color: #000;
+}
+.nav-link span:hover{
+	background: #fff;
+	color: #000;
+}
+
+footer{
+	background-color: #fff;
+}
+footer .group{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 50px 50px 20px 50px;
+}
+footer .group a{
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 15px;
+	font-size: x-large;
+	margin-left: 20px;
+	border-radius: 5px;
+}
+footer .group a:hover, footer .group a:focus{
+	text-decoration: none;
+}
+footer .foot{
+	width: 100%;
+	text-align: center;
+	color: #2c3e51;
+	padding: 25px;
+	font-size: large;
+}
+footer .foot a{
+	color: #2c3e51;
+}

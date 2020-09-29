@@ -27,8 +27,6 @@ def home( request ):
 
     obj = book_section.objects.all()
 
-    counter = 0
-
     lst = list()
     for i in obj:
         txt = i.text.lower().replace(' books', '')
@@ -71,10 +69,55 @@ def home( request ):
 
     bk_sections = pick3(lst)
 
+    obj = paper_section.objects.all()
+
+    lst = list()
+    for i in obj:
+        txt = i.text.lower().replace(' papers', '')
+
+        obj1 = paper.objects.all()
+
+        prs = list()
+        for pr in obj1:
+
+            dowloads = len(paper_download.objects.filter(paper=bk.id))
+            
+            tag_lnk = pr.tags.replace('blob', 'raw')
+
+            found = False
+
+            tags_lst = list()
+
+            r = requests.get(tag_lnk)
+            if r.status_code == 200:
+               tags = r.text.split('\n')
+               
+               for tag in tags:
+                   if str(tag).strip():
+                      tags_lst.append(tag)
+                   if txt == str(tag).lower():
+                      found = True
+
+            if found:
+               prs.append(
+                   [pr, tags_lst, dowloads]
+               )
+
+            if not found and txt in pr.title.lower():
+               prs.append(
+                   [pr, tags_lst, dowloads]
+               )
+        lst.append(
+            [i, prs]
+        )
+
+    pr_sections = pick3(lst)
+
     Context = {
         'form': form,
         'nav_actives': nav_actives,
         'book_sections': bk_sections,
+        'paper_sections': pr_sections,
         'book_downloads': bd,
         'total_downloads': td,
         'paper_downloads': pd,

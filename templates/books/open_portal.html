@@ -1,0 +1,97 @@
+
+
+{% extends 'books/base.html' %}
+{% load static %}
+{% load books_filter %}
+
+{% block title %}
+    Portal No.{{ book.0.id }} | EbooksPortal
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/books/open_portal.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <br>
+
+    <div class="container">
+        <form action="/books/" method="POST">
+            <div class="input-group">
+                {% csrf_token %}
+                <input type="search" name="q" id="search" placeholder="search" class="form-control" required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-dark">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="album py-5 bg-light">
+
+        <div class="container">
+            <div class="row">
+                
+                {% if book %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ book.0.image|lnk_filter }}" class="card-img-top">
+
+                        <div class="card-body">
+                            <p class="lead text-center">
+                                {{ book.0.title }}
+                            </p>
+
+                            <p class="lead">
+                                {% for tag in book.1 %}
+                                <a href="/books/q/{{ tag }}" class="badge badge-secondary">
+                                    {{ tag }}
+                                </a>
+                                {% endfor %}
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center">
+
+                                <div class="btn-group">
+                                    {% if user.is_authenticated %}
+                                        <a href="{{ book.0.attachment|lnk_filter }}" onclick="book_mark_download({{ book.0.id }})" class="btn btn-sm btn-outline-secondary">
+                                            Download
+                                        </a>
+                                    {% else %}
+                                        <a href="/accounts/login" class="btn btn-sm btn-outline-secondary">
+                                            Download
+                                        </a>
+                                    {% endif %}
+                                    <div onclick="copythis('https://ebooksportal.herokuapp.com/books/open-portal/{{ book.0.id }}')" class="btn btn-sm btn-outline-secondary">
+                                        Copy Link
+                                    </div>
+                                </div>
+
+                                <small class="text-muted">
+                                    <i class="fa fa-cloud-download"></i>
+                                    {{ book.2 }}
+                                </small>
+
+                                <small class="text-muted">
+                                    {{ book.0.date }}
+                                </small>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{% static '/js/EbooksPortal/copy_lnk.js' %}"></script>
+    <script src="{% static '/js/EbooksPortal/mark_download.js' %}"></script>
+{% endblock %}

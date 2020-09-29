@@ -20,11 +20,11 @@
                     EbooksPortal
                 </h1>
                 <p class="lead text-muted">
-                    A hub for free Ebooks for computer science.
+                    A hub for free ebooks for computer science.
                 </p>
                 <p>
                     <a href="/books/all" class="btn btn-info my-2">
-                        Explore More
+                        explore more
                     </a>
                 </p>
             </div>
@@ -62,7 +62,7 @@
 
                                     <div class="btn-group">
                                         {% if user.is_authenticated %}
-                                            <a href="{{ book.0.attachment|lnk_filter }}" onclick="mark_download({{ book.0.id }})" class="btn btn-sm btn-outline-secondary">
+                                            <a href="{{ book.0.attachment|lnk_filter }}" onclick="book_mark_download({{ book.0.id }})" class="btn btn-sm btn-outline-secondary">
                                                 Download
                                             </a>
                                         {% else %}
@@ -82,6 +82,72 @@
 
                                     <small class="text-muted">
                                         {{ book.0.date }}
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        {% for section in paper_sections %}
+        <div class="album py-5 bg-light">
+
+            <h1 class="galada text-center">
+                {{ section.0.text }}
+            </h1>
+
+            <div class="container">
+                <div class="row">
+                    
+                    {% for paper in section.1 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="{{ paper.0.image|lnk_filter }}" class="card-img-top">
+
+                            <div class="card-body">
+                                <p class="lead text-center">
+                                    {{ paper.0.title }}
+                                </p>
+
+                                <p class="lead">
+                                    {% for tag in paper.1 %}
+                                    <a href="/papers/q/{{ tag }}" class="badge badge-secondary">
+                                        {{ tag }}
+                                    </a>
+                                    {% endfor %}
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <div class="btn-group">
+                                        {% if user.is_authenticated %}
+                                            <a href="{{ paper.0.attachment|lnk_filter }}" onclick="paper_mark_download({{ paper.0.id }})" class="btn btn-sm btn-outline-secondary">
+                                                Download
+                                            </a>
+                                        {% else %}
+                                            <a href="/accounts/login" class="btn btn-sm btn-outline-secondary">
+                                                Download
+                                            </a>
+                                        {% endif %}
+                                        <div onclick="copythis('https://ebooksportal.herokuapp.com/papers/open-portal/{{ paper.0.id }}')" class="btn btn-sm btn-outline-secondary">
+                                            Copy Link
+                                        </div>
+                                    </div>
+
+                                    <small class="text-muted">
+										<i class="fa fa-cloud-download"></i>
+										{{ paper.2 }}
+									</small>
+
+                                    <small class="text-muted">
+                                        {{ paper.0.date }}
                                     </small>
 
                                 </div>

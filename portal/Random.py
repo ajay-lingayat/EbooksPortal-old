@@ -7,9 +7,9 @@ def pick3( sections ):
     for section in sections:
         lst = list()
         if len(section[1]) > 3:
-           books = section[1][:3]
+           item = section[1][:3]
            lst.append(section[0])
-           lst.append(books)
+           lst.append(item)
         else:
            new_sections.append(section)
         if lst:
