@@ -37,6 +37,8 @@ def home( request ):
 
         bks = list()
         for bk in obj1:
+
+            dowloads = len(book_download.objects.filter(book=bk.id))
             
             tag_lnk = bk.tags.replace('blob', 'raw')
 
@@ -56,12 +58,12 @@ def home( request ):
 
             if found:
                bks.append(
-                   [bk, tags_lst]
+                   [bk, tags_lst, dowloads]
                )
 
             if not found and txt in bk.title.lower():
                bks.append(
-                   [bk, tags_lst]
+                   [bk, tags_lst, dowloads]
                )
         lst.append(
             [i, bks]

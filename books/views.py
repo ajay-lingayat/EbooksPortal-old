@@ -17,6 +17,8 @@ def all_books(request):
         lst = [i]
         lst1 = list()
 
+        downloads = len(book_download.objects.filter(book=i.id))
+
         tags_lnk = i.tags.replace('blob', 'raw')
 
         r = requests.get(tags_lnk)
@@ -29,6 +31,7 @@ def all_books(request):
                   lst1.append(tag)
 
         lst.append(lst1)
+        lst.append(downloads)
         books.append(lst)
 
     paginator = Paginator(
@@ -97,6 +100,8 @@ def query(request, query):
            lst = [i]
            lst1 = list()
 
+           dowloads = len(book_download.objects.filter(book=i.id))
+
            tags_lnk = i.tags.replace('blob', 'raw')
 
            r = requests.get(tags_lnk)
@@ -109,6 +114,7 @@ def query(request, query):
                      lst1.append(tag)
 
            lst.append(lst1)
+           lst.append(dowloads)
            bks.append(lst)
 
        paginator = Paginator(
@@ -141,6 +147,10 @@ def open_portal(request, id_no):
     obj = book.objects.get(id=id_no)
 
     bk = [obj, []]
+
+    dowloads = len(book_download.objects.filter(book=obj.id))
+    bk.append(dowloads)
+
     tags_lnk = obj.tags.replace('blob', 'raw')
 
     r = requests.get(tags_lnk)
