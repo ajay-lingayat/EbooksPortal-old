@@ -8,7 +8,7 @@ class UserFilter(rest_framework.FilterSet):
     class Meta:
         model = User
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'username': ['icontains'],
             'is_staff': ['icontains'],
             'is_superuser': ['icontains'],
@@ -21,7 +21,7 @@ class StaffFilter(rest_framework.FilterSet):
     class Meta:
         model = User
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'username': ['icontains'],
             'is_superuser': ['icontains'],
             'first_name': ['icontains'],
@@ -33,7 +33,7 @@ class ActiveUsersFilter(rest_framework.FilterSet):
     class Meta:
         model = User
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'username': ['icontains'],
             'is_superuser': ['icontains'],
             'first_name': ['icontains'],
@@ -45,19 +45,17 @@ class EndUsersFilter(rest_framework.FilterSet):
     class Meta:
         model = User
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'username': ['icontains'],
             'first_name': ['icontains'],
             'last_name': ['icontains'],
         }
 
 class BooksFilter(rest_framework.FilterSet):
-    date = rest_framework.DateFilter(field_name='date', lookup_expr='iexact')
-
     class Meta:
         model = book
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'title': ['icontains']
         }
 
@@ -65,23 +63,21 @@ class BookDownloadsFilter(rest_framework.FilterSet):
     class Meta:
         model = book_download
         fields = {
-            'id': ['iexact']
+            'id': ['in']
         }
 
 class BookSectionsFilter(rest_framework.FilterSet):
     class Meta:
         model = book_section
         fields = {
-            'id': ['iexact']
+            'id': ['in']
         }
 
 class PapersFilter(rest_framework.FilterSet):
-    date = rest_framework.DateFilter(field_name='date', lookup_expr='iexact')
-
     class Meta:
         model = paper
         fields = {
-            'id': ['iexact'],
+            'id': ['in'],
             'title': ['icontains']
         }
 
@@ -89,12 +85,12 @@ class PaperDownloadsFilter(rest_framework.FilterSet):
     class Meta:
         model = paper_download
         fields = {
-            'id': ['iexact']
+            'id': ['in']
         }
 
 class PaperSectionsFilter(rest_framework.FilterSet):
     class Meta:
         model = paper_section
         fields = {
-            'id': ['iexact']
+            'id': ['in']
         }
