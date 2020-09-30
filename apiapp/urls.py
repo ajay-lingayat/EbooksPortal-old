@@ -16,4 +16,5 @@ router.register('papers/sections', PaperSectionsViewset, basename='Paper Section
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('count', AllCountsViewset.as_view(), name='All Counts'),
 ]

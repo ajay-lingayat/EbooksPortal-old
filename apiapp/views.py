@@ -6,6 +6,8 @@ from books.models import *
 from papers.models import *
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 class UserViewset(ModelViewSet):
@@ -56,6 +58,26 @@ class BookSectionsViewset(ModelViewSet):
     filterset_class = BookSectionsFilter
     queryset = book_section.objects.all()
 
+class AllCountsViewset(APIView):
+
+    def get(self, request, format=None):
+        users = User.objects.all().count()
+        books = book.objects.all().count()
+        papers = paper.objects.all().count()
+        book_downloads = book_download.objects.all().count()
+        paper_downloads = paper_download.objects.all().count()
+        total_downloads = book_downloads + paper_downloads
+
+        return Response(
+            {
+                'users': users,
+                'books': books,
+                'papers': papers,
+                'book_downloads': book_downloads,
+                'paper_downloads': paper_downloads,
+                'total_downloads': total_downloads
+            }
+        )
 
 class PapersViewset(ModelViewSet):
     serializer_class = PapersSerializer
