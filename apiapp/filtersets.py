@@ -12,9 +12,9 @@ class UserFilter(rest_framework.FilterSet):
             'username': ['icontains'],
             'is_staff': ['icontains'],
             'is_superuser': ['icontains'],
+            'is_active': ['icontains'],
             'first_name': ['icontains'],
-            'last_name': ['icontains'],
-            'groups': ['icontains'],
+            'last_name': ['icontains']
         }
 
 class StaffFilter(rest_framework.FilterSet):
@@ -24,9 +24,9 @@ class StaffFilter(rest_framework.FilterSet):
             'id': ['in'],
             'username': ['icontains'],
             'is_superuser': ['icontains'],
+            'is_active': ['icontains'],
             'first_name': ['icontains'],
-            'last_name': ['icontains'],
-            'groups': ['icontains'],
+            'last_name': ['icontains']
         }
 
 class ActiveUsersFilter(rest_framework.FilterSet):
@@ -37,8 +37,7 @@ class ActiveUsersFilter(rest_framework.FilterSet):
             'username': ['icontains'],
             'is_superuser': ['icontains'],
             'first_name': ['icontains'],
-            'last_name': ['icontains'],
-            'groups': ['icontains'],
+            'last_name': ['icontains']
         }
 
 class EndUsersFilter(rest_framework.FilterSet):
@@ -48,7 +47,7 @@ class EndUsersFilter(rest_framework.FilterSet):
             'id': ['in'],
             'username': ['icontains'],
             'first_name': ['icontains'],
-            'last_name': ['icontains'],
+            'last_name': ['icontains']
         }
 
 class BooksFilter(rest_framework.FilterSet):
