@@ -11,8 +11,8 @@ class UserFilter(rest_framework.FilterSet):
             'id': ['in'],
             'username': ['icontains'],
             'is_staff': ['icontains'],
-            'is_superuser': ['icontains'],
             'is_active': ['icontains'],
+            'is_superuser': ['icontains'],
             'first_name': ['icontains'],
             'last_name': ['icontains']
         }
@@ -23,8 +23,8 @@ class StaffFilter(rest_framework.FilterSet):
         fields = {
             'id': ['in'],
             'username': ['icontains'],
-            'is_superuser': ['icontains'],
             'is_active': ['icontains'],
+            'is_superuser': ['icontains'],
             'first_name': ['icontains'],
             'last_name': ['icontains']
         }
