@@ -13,3 +13,6 @@ body{
 	border-color: #343a40 !important;
 	color: #fff !important;
 }
+.pagination .page-link:focus{
+	box-shadow: 0 0 0 .2rem rgba(52, 58, 64, .25) !important;
+}
