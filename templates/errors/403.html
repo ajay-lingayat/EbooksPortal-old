@@ -1,0 +1,20 @@
+
+
+{% extends 'errors/base.html' %}
+{% load static %}
+
+{% block title %}
+    403 Forbidden Page
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static '/css/errors/403.css' %}">
+{% endblock %}
+
+{% block content %}
+    <br>
+    <h1 class="display-4 text-center">
+        403 Forbidden Page
+    </h1>
+    <br>
+{% endblock %}
