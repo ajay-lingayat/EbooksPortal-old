@@ -132,12 +132,12 @@
 {% block content %}
 <section class="signup bg-light" id="signup">
 
-    <h1 class="text-center lead-text">
+    <h1 class="text-center">
         Sign Up
     </h1>
 
-    <p class="lead text-center">
-        {% blocktrans with provider_name=account.get_provider.name site_name=site.name %} You are about to use your {{ provider_name }} account to login to {{ site_name }}. As a final step , please complete the following form: {% endblocktrans %}
+    <p class="lead text-center lead-text">
+        {% blocktrans with provider_name=account.get_provider.name site_name=site.name %} You are about to use your {{ provider_name }} account to login to {{ site_name }}. As a final step, please complete the following form: {% endblocktrans %}
     </p>
 
     <div class="container justify-content-center">
