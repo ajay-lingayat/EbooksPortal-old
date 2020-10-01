@@ -28,3 +28,7 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler403 = 'portal.errors.error403'
+handler404 = 'portal.errors.error404'
+handler500 = 'portal.errors.error500'
