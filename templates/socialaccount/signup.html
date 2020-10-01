@@ -1,14 +1,13 @@
 
 {% extends 'socialaccount/base.html' %}
 {% load static %}
-{% load socialaccount %}
 
 {% block title %}
-    Login Cancelled | EbooksPortal
+    Sign Up | EbooksPortal
 {% endblock %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static '/css/socialaccount/login_cancelled.css' %}">
+    <link rel="stylesheet" href="{% static '/css/socialaccount/signup.css' %}">
 {% endblock %}
 
 {% block navbar %}
@@ -64,7 +63,7 @@
                     </li>
                     
                     {% if user.is_authenticated %}
-                    {% if user.is_staff %}
+                {% if user.is_staff %}
                     <li class="nav-item active">
                         <a href="/admin" class="nav-link">
                             <span>
@@ -89,15 +88,15 @@
                     </li>
                     {% else %}
                     <li class="nav-item active">
-                        <a href="#login" class="nav-link">
+                        <a href="/accounts/login" class="nav-link">
                             <span>
                                 Sign In
                             </span>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a href="/accounts/signup" class="nav-link">
-                            <span>
+                        <a href="#signup" class="nav-link">
+                            <span class="active">
                                 Sign Up
                             </span>
                         </a>
@@ -113,19 +112,71 @@
 {% endblock %}
 
 
-{% block content %}
-<section class="box bg-light" id="box">
+{% block form_errors %}
+    {% for i in form.non_field_errors %}
+    <div class="container">
+            <div class="alert alert-warning" role="alert">
+                {{ i }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+    </div>
+    {% endfor %}
+{% endblock %}
 
-    <h1 class="text-center">
-        Login cancelled
+
+{% block content %}
+<section class="signup bg-light" id="signup">
+
+    <h1 class="text-center lead-text">
+        Sign Up
     </h1>
 
-    <p class="lead text-center lead-text">
-        You decided to cancel logging in to our site using one of your existing accounts. If this was a mistake, pleasse proceed to <a href="{% url 'account_login' %}">Sign In</a>
+    <p class="lead text-center">
+        You are about to use your {{ provider_name }} account to login to {{ site_name }}. As a final step , please complete the following form:
     </p>
+
+    <div class="container justify-content-center">
+
+        <form name="frm" action="{% url 'socialaccount_signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                
+                <label for="id_username">
+                    Username
+                </label>
+                {{ form.username }}
+                {% for i in form.username.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+                
+                <label for="id_email">
+                    Email
+                </label>
+                {{ form.email }}
+                {% for i in form.email.errors %}
+                    <p class="err">
+                        {{ i }}
+                    </p>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-dark btn-block">
+                    Sign Up
+                </button>
+
+            </div>
+        </form>
+
+    </div>
 </section>
 {% endblock %}
 
 
 {% block scripts %}
+    <script src="{% static '/js/account/signup.js' %}"></script>
 {% endblock %}
