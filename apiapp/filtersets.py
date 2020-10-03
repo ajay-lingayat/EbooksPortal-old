@@ -59,10 +59,13 @@ class BooksFilter(rest_framework.FilterSet):
         }
 
 class BookDownloadsFilter(rest_framework.FilterSet):
+    book_title = rest_framework.CharFilter(field_name='book__title', lookup_expr='icontains')
+
     class Meta:
         model = book_download
         fields = {
-            'id': ['in']
+            'id': ['in'],
+            'book': ['in']
         }
 
 class BookSectionsFilter(rest_framework.FilterSet):
@@ -81,10 +84,13 @@ class PapersFilter(rest_framework.FilterSet):
         }
 
 class PaperDownloadsFilter(rest_framework.FilterSet):
+    paper_title = rest_framework.CharFilter(field_name='paper__title', lookup_expr='icontains')
+    
     class Meta:
         model = paper_download
         fields = {
-            'id': ['in']
+            'id': ['in'],
+            'paper': ['in']
         }
 
 class PaperSectionsFilter(rest_framework.FilterSet):
