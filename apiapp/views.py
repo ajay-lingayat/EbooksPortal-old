@@ -5,7 +5,7 @@ from .filtersets import *
 from books.models import *
 from papers.models import *
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -14,12 +14,10 @@ class UserViewset(ModelViewSet):
     serializer_class = UsersSerializer
     filterset_class = UserFilter
     queryset = User.objects.all()
-    permission_classes = [IsAdminUser]
 
 class StaffViewset(ModelViewSet):
     serializer_class = StaffSerializer
     filterset_class = StaffFilter
-    permission_classes = [IsAdminUser]
     
     def get_queryset(self):
         queryset = User.objects.filter(is_staff=True)
@@ -28,7 +26,6 @@ class StaffViewset(ModelViewSet):
 class ActiveUsersViewset(ModelViewSet):
     serializer_class = ActiveUsersSerializer
     filterset_class = ActiveUsersFilter
-    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         queryset = User.objects.filter(is_active=True)
@@ -37,7 +34,6 @@ class ActiveUsersViewset(ModelViewSet):
 class EndUsersViewset(ModelViewSet):
     serializer_class = EndUsersSerializer
     filterset_class = EndUsersFilter
-    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         queryset = User.objects.filter(is_staff=False)
@@ -59,6 +55,8 @@ class BookSectionsViewset(ModelViewSet):
     queryset = book_section.objects.all()
 
 class AllCountsViewset(APIView):
+
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         users = User.objects.all().count()
