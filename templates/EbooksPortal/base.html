@@ -39,14 +39,14 @@
 						<li class="nav-item active">
 							<a href="/" class="nav-link">
 								<span class="{{ nav_actives.0 }}">
-									Home
+									<i class="fa fa-home"></i> Home
 								</span>
 							</a>
 						</li>
 						<li class="nav-item active">
 							<a href="/about" class="nav-link">
 								<span class="{{ nav_actives.1 }}">
-									About
+									<i class="fa fa-info-circle"></i> About
 								</span>
 							</a>
 						</li>
@@ -54,13 +54,13 @@
 							{% if nav_actives.2 %}
 							<a href="#contact" class="nav-link">
 								<span class="active">
-									Contact
+									<i class="fa fa-phone-alt"></i> Contact
 								</span>
 							</a>
 							{% else %}
 							<a href="/contact" class="nav-link">
 								<span>
-									Contact
+									<i class="fa fa-phone-alt"></i> Contact
 								</span>
 							</a>
 							{% endif %}
@@ -69,13 +69,13 @@
 							{% if nav_actives.3 %}
 							<a href="#books" class="nav-link">
 								<span class="active">
-									Books
+									<i class="fa fa-book"></i> Books
 								</span>
 							</a>
 							{% else %}
 							<a href="/books/all" class="nav-link">
 								<span>
-									Books
+									<i class="fa fa-book"></i> Books
 								</span>
 							</a>
 							{% endif %}
@@ -84,13 +84,13 @@
 							{% if nav_actives.4 %}
 							<a href="#papers" class="nav-link">
 								<span class="active">
-									Papers
+									<i class="fa fa-sticky-note"></i> Papers
 								</span>
 							</a>
 							{% else %}
 							<a href="/papers/all" class="nav-link">
 								<span>
-									Papers
+									<i class="fa fa-sticky-note"></i> Papers
 								</span>
 							</a>
 							{% endif %}
@@ -101,7 +101,7 @@
 						<li class="nav-item active">
 							<a href="/admin" class="nav-link">
 								<span>
-									Admin Panel
+									<i class="fa fa-user-cog"></i> Admin Panel
 								</span>
 							</a>
 						</li>
@@ -110,13 +110,13 @@
 							{% if nav_actives.5 %}
 							<a href="#profile" class="nav-link">
 								<span class="active">
-									{{ user.username }}
+									<i class="fa fa-user"></i> {{ user.username }}
 								</span>
 							</a>
 							{% else %}
 							<a href="/profile" class="nav-link">
 								<span>
-									{{ user.username }}
+									<i class="fa fa-user"></i> {{ user.username }}
 								</span>
 							</a>
 							{% endif %}
@@ -124,7 +124,7 @@
 						<li class="nav-item active">
 							<a href="/accounts/logout" class="nav-link">
 								<span class="{{ nav_actives.6 }}">
-									logout
+									<i class="fa fa-sign-out"></i> logout
 								</span>
 							</a>
 						</li>
@@ -132,14 +132,14 @@
 						<li class="nav-item active">
 							<a href="/accounts/login" class="nav-link">
 								<span class="{{ nav_actives.5 }}">
-									Sign In
+									<i class="fa fa-sign-in-alt"></i> Sign In
 								</span>
 							</a>
 						</li>
 						<li class="nav-item active">
 							<a href="/accounts/signup" class="nav-link">
 								<span class="{{ nav_actives.6 }}">
-									Sign Up
+									<i class="fa fa-user-plus"></i> Sign Up
 								</span>
 							</a>
 						</li>
