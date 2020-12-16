@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'books',
     'portal',
     'papers',
+    'apis',
     
     'allauth',
     'allauth.account',
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
 
-    'apiapp',
+    'simple_history'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
