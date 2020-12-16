@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class book(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=500)
     attachment = models.URLField(max_length=200)
     image = models.URLField(
@@ -23,7 +23,7 @@ class book(models.Model):
         verbose_name = 'book'
         verbose_name_plural = 'books'
 
-class book_section(models.Model):
+class BookSection(models.Model):
     text = models.CharField(max_length=50)
 
     def __str__(self):

@@ -52,7 +52,7 @@ class EndUsersFilter(rest_framework.FilterSet):
 
 class BooksFilter(rest_framework.FilterSet):
     class Meta:
-        model = book
+        model = Book
         fields = {
             'id': ['exact'],
             'title': ['icontains'],
@@ -61,14 +61,14 @@ class BooksFilter(rest_framework.FilterSet):
 
 class BookSectionsFilter(rest_framework.FilterSet):
     class Meta:
-        model = book_section
+        model = BookSection
         fields = {
             'id': ['exact']
         }
 
 class PapersFilter(rest_framework.FilterSet):
     class Meta:
-        model = paper
+        model = Paper
         fields = {
             'id': ['exact'],
             'title': ['icontains'],
@@ -77,7 +77,7 @@ class PapersFilter(rest_framework.FilterSet):
 
 class PaperSectionsFilter(rest_framework.FilterSet):
     class Meta:
-        model = paper_section
+        model = PaperSection
         fields = {
             'id': ['exact']
         }

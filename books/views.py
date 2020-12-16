@@ -10,7 +10,7 @@ def all_books(request):
     nav_actives = [None for i in range(7)]
     nav_actives[3] = 'active'
 
-    obj = book.objects.all()
+    obj = Book.objects.all()
 
     books = list()
     for i in obj:
@@ -68,11 +68,11 @@ def query(request, query):
         query = False
 
     if query:
-       obj = book.objects.all()
+       obj = Book.objects.all()
 
        books = list()
-       for bk in obj:
-           tags_lnk = bk.tags.replace('blob', 'raw')
+       for book in obj:
+           tags_lnk = book.tags.replace('blob', 'raw')
 
            r = requests.get(tags_lnk)
            if r.status_code == 200:
@@ -83,11 +83,11 @@ def query(request, query):
               for tag in tags:
                   tag = tag.strip()
                   if query == tag.lower():
-                     books.append(bk)
+                     books.append(book)
                      found = True
 
-           if not found and query in bk.title.lower():
-              books.append(bk)
+           if not found and query in book.title.lower():
+              books.append(book)
 
        
        bks = list()
@@ -135,9 +135,9 @@ def query(request, query):
 
 def open_portal(request, id_no):
 
-    if book.objects.filter(id=id_no).exists():
-        obj = book.objects.get(id=id_no)
-        bk = [obj, []]
+    if Book.objects.filter(id=id_no).exists():
+        obj = Book.objects.get(id=id_no)
+        book = [obj, []]
 
         tags_lnk = obj.tags.replace('blob', 'raw')
 
@@ -147,10 +147,10 @@ def open_portal(request, id_no):
             r = r.split('\n')
             for tag in r:
                 if tag.replace(' ', ''):
-                    bk[1].append(tag)
+                    book[1].append(tag)
         
         Context = {
-            'book': bk,
+            'book': book,
         }
         t = loader.get_template('books/open_portal.html')
         return HttpResponse(
@@ -165,12 +165,12 @@ def open_portal(request, id_no):
 
 def mark_download(request):
     try:
-        bk_id = request.GET.get('bk_id', False)
+        book_id = request.GET.get('bk_id', False)
         ans = False
-        if bk_id:
-            bk = book.objects.get(id=bk_id)
-            bk.downloads += 1
-            bk.save()
+        if book_id:
+            book = Book.objects.get(id=bk_id)
+            book.downloads += 1
+            book.save()
             ans = True
         return JsonResponse({'ans': ans})
     except Exception as e:

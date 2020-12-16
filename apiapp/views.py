@@ -42,27 +42,39 @@ class EndUsersViewset(ModelViewSet):
 class BooksViewset(ModelViewSet):
     serializer_class = BooksSerializer
     filterset_class = BooksFilter
-    queryset = book.objects.all()
+    queryset = Book.objects.all()
 
 class BookSectionsViewset(ModelViewSet):
     serializer_class = BookSectionsSerializer
     filterset_class = BookSectionsFilter
-    queryset = book_section.objects.all()
+    queryset = BookSection.objects.all()
+
+class PapersViewset(ModelViewSet):
+    serializer_class = PapersSerializer
+    filterset_class = PapersFilter
+    queryset = Paper.objects.all()
+
+class PaperSectionsViewset(ModelViewSet):
+    serializer_class = PaperSectionsSerializer
+    filterset_class = PaperSectionsFilter
+    queryset = PaperSection.objects.all()
 
 class AllCountsViewset(APIView):
-
     permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         users = User.objects.all().count()
-        books = book.objects.all().count()
-        papers = paper.objects.all().count()
+        books = Book.objects.all().count()
+        papers = Paper.objects.all().count()
+
         book_downloads = 0
-        for bk in book.objects.all():
+        for bk in Book.objects.all():
             book_downloads += bk.downloads
+        
         paper_downloads = 0
-        for pr in paper.objects.all():
+        for pr in Paper.objects.all():
             paper_downloads += pr.downloads
+        
         total_downloads = book_downloads + paper_downloads
 
         return Response(
@@ -75,13 +87,3 @@ class AllCountsViewset(APIView):
                 'total_downloads': total_downloads
             }
         )
-
-class PapersViewset(ModelViewSet):
-    serializer_class = PapersSerializer
-    filterset_class = PapersFilter
-    queryset = paper.objects.all()
-
-class PaperSectionsViewset(ModelViewSet):
-    serializer_class = PaperSectionsSerializer
-    filterset_class = PaperSectionsFilter
-    queryset = paper_section.objects.all()

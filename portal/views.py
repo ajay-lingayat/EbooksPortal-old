@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from .forms import *
 from django.core.mail import send_mail
-import os
 from django.contrib.auth.models import User, auth
-from .models import *
-import requests
 from django.core.paginator import Paginator
+
+import os, requests
+
+from .forms import *
+from .models import *
 from .Random import *
-import random
 from EbooksPortal.settings import EMAIL_HOST_USER, TO
 
 # Create your views here.
@@ -21,27 +21,27 @@ def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
 
-    bd = 0
-    for bk in book.objects.all():
-        bd += bk.downloads
-    pd = 0
-    for pr in paper.objects.all():
-        pd += pr.downloads
-    td = bd+pd
+    book_downloads = 0
+    for book in Book.objects.all():
+        book_downloads += book.downloads
+
+    paper_downloads = 0
+    for paper in Paper.objects.all():
+        paper_downloads += paper.downloads
+        
+    total_downloads = book_downloads+paper_downloads
 
     form = ContactForm()
 
-    obj = book_section.objects.all()
-
+    obj = BookSection.objects.all()
     lst = list()
     for i in obj:
         txt = i.text.lower().replace(' books', '')
 
-        obj1 = book.objects.all()
-
+        obj1 = Book.objects.all()
         bks = list()
-        for bk in obj1:
-            tag_lnk = bk.tags.replace('blob', 'raw')
+        for book in obj1:
+            tag_lnk = book.tags.replace('blob', 'raw')
             found = False
             tags_lst = list()
 
@@ -56,31 +56,23 @@ def home( request ):
                       found = True
 
             if found:
-               bks.append(
-                   [bk, tags_lst]
-               )
+               bks.append([book, tags_lst])
 
-            if not found and txt in bk.title.lower():
-               bks.append(
-                   [bk, tags_lst]
-               )
-        lst.append(
-            [i, bks]
-        )
+            if not found and txt in book.title.lower():
+               bks.append([book, tags_lst])
 
+        lst.append([i, bks])
     bk_sections = pick3(lst)
 
-    obj = paper_section.objects.all()
-
+    obj = PaperSection.objects.all()
     lst = list()
     for i in obj:
         txt = i.text.lower().replace(' papers', '')
 
-        obj1 = paper.objects.all()
-
+        obj1 = Paper.objects.all()
         prs = list()
-        for pr in obj1:
-            tag_lnk = pr.tags.replace('blob', 'raw')
+        for paper in obj1:
+            tag_lnk = paper.tags.replace('blob', 'raw')
             found = False
             tags_lst = list()
 
@@ -95,17 +87,11 @@ def home( request ):
                       found = True
 
             if found:
-               prs.append(
-                   [pr, tags_lst]
-               )
+               prs.append([paper, tags_lst])
 
-            if not found and txt in pr.title.lower():
-               prs.append(
-                   [pr, tags_lst]
-               )
-        lst.append(
-            [i, prs]
-        )
+            if not found and txt in paper.title.lower():
+               prs.append([paper, tags_lst])
+        lst.append([i, prs])
 
     pr_sections = pick3(lst)
 
@@ -114,9 +100,9 @@ def home( request ):
         'nav_actives': nav_actives,
         'book_sections': bk_sections,
         'paper_sections': pr_sections,
-        'book_downloads': bd,
-        'total_downloads': td,
-        'paper_downloads': pd,
+        'book_downloads': book_downloads,
+        'total_downloads': total_downloads,
+        'paper_downloads': paper_downloads,
     }
     t = loader.get_template('EbooksPortal/index.html')
     return HttpResponse(

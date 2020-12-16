@@ -10,8 +10,7 @@ def all_papers(request):
     nav_actives = [None for i in range(7)]
     nav_actives[4] = 'active'
 
-    obj = paper.objects.all()
-
+    obj = Paper.objects.all()
     papers = list()
     for i in obj:
         lst = [i]
@@ -68,12 +67,10 @@ def query(request, query):
         query = False
 
     if query:
-       
-       obj = paper.objects.all()
-
+       obj = Paper.objects.all()
        papers = list()
-       for pr in obj:
-           tags_lnk = pr.tags.replace('blob', 'raw')
+       for paper in obj:
+           tags_lnk = paper.tags.replace('blob', 'raw')
 
            r = requests.get(tags_lnk)
            if r.status_code == 200:
@@ -84,13 +81,12 @@ def query(request, query):
               for tag in tags:
                   tag = tag.strip()
                   if query == tag.lower():
-                     papers.append(pr)
+                     papers.append(paper)
                      found = True
 
-           if not found and query in pr.title.lower():
-              papers.append(pr)
+           if not found and query in paper.title.lower():
+              papers.append(paper)
 
-       
        prs = list()
        for i in papers:
            lst = [i]
@@ -136,9 +132,9 @@ def query(request, query):
 
 def open_portal(request, id_no):
 
-    if paper.objects.filter(id=id_no).exists():
-        obj = paper.objects.get(id=id_no)
-        pr = [obj, []]
+    if Paper.objects.filter(id=id_no).exists():
+        obj = Paper.objects.get(id=id_no)
+        paper = [obj, []]
 
         tags_lnk = obj.tags.replace('blob', 'raw')
 
@@ -148,10 +144,10 @@ def open_portal(request, id_no):
             r = r.split('\n')
             for tag in r:
                 if tag.replace(' ', ''):
-                    pr[1].append(tag)
+                    paper[1].append(tag)
         
         Context = {
-            'paper': pr,
+            'paper': paper,
         }
         t = loader.get_template('papers/open_portal.html')
         return HttpResponse(
@@ -168,9 +164,9 @@ def mark_download(request):
         paper_id = request.GET.get('paper_id', False)
         ans = False
         if paper_id:
-            pr = paper.objects.get(id=paper_id)
-            pr.downloads += 1
-            pr.save()
+            paper = paper.objects.get(id=paper_id)
+            paper.downloads += 1
+            paper.save()
             ans = True
         return JsonResponse({'ans':ans})
     except Exception as e:

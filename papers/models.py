@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class paper(models.Model):
+class Paper(models.Model):
     title = models.CharField(max_length=500)
     attachment = models.URLField(max_length=200)
     image = models.URLField(
@@ -20,7 +20,7 @@ class paper(models.Model):
         verbose_name = 'paper'
         verbose_name_plural = 'papers'
 
-class paper_section(models.Model):
+class PaperSection(models.Model):
     text = models.CharField(max_length=50)
 
     def __str__(self):

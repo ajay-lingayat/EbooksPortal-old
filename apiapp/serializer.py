@@ -33,20 +33,20 @@ class EndUsersSerializer(ModelSerializer):
 
 class BooksSerializer(ModelSerializer):
     class Meta:
-        model = book
+        model = Book
         fields = '__all__'
 
 class BookSectionsSerializer(ModelSerializer):
     class Meta:
-        model = book_section
+        model = BookSection
         fields = '__all__'
 
 class PapersSerializer(ModelSerializer):
     class Meta:
-        model = paper
+        model = Paper
         fields = '__all__'
 
 class PaperSectionsSerializer(ModelSerializer):
     class Meta:
-        model = paper_section
+        model = PaperSection
         fields = '__all__'
