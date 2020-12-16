@@ -6,7 +6,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 # Register your models here.
 class PaperHistoryAdmin(SimpleHistoryAdmin):
-    list_display = ['id', 'title', 'downloads', 'create_date']
+    list_display = ['id', 'title', 'create_date', 'downloads']
     history_list_display = ['status']
     search_fields = ['id', 'title', 'downloads']
     readonly_fields=('downloads', 'create_date')
