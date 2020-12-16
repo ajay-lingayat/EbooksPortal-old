@@ -13,7 +13,7 @@ class Book(models.Model):
         max_length=200,
         default='https://github.com/Ajay2810-hub/Ebooks/blob/master/default/tags/tag.txt'
     )
-    date = models.DateField(auto_now_add=True)
+    create_date = models.DateField(auto_now_add=True)
     downloads = models.BigIntegerField(default=0)
     history = HistoricalRecords()
 
@@ -21,6 +21,7 @@ class Book(models.Model):
         return self.title
 
     class Meta:
+        ordering = ['create_date']
         db_table = 'ep_book'
         verbose_name = 'book'
         verbose_name_plural = 'books'

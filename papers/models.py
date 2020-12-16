@@ -10,7 +10,7 @@ class Paper(models.Model):
         default='https://github.com/Ajay2810-hub/Ebooks/raw/master/default/images/image_unavailable.jpg'
     )
     tags = models.URLField(max_length=200)
-    date = models.DateField(auto_now_add=True)
+    create_date = models.DateField(auto_now_add=True)
     downloads = models.BigIntegerField(default=0)
     history = HistoricalRecords()
 
@@ -18,6 +18,7 @@ class Paper(models.Model):
         return self.title
 
     class Meta:
+        ordering = ['-create_date']
         db_table = 'ep_paper'
         verbose_name = 'paper'
         verbose_name_plural = 'papers'
