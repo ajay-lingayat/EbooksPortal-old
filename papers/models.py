@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from simple_history.models import HistoricalRecords
 
 # Create your models here.
@@ -10,7 +12,7 @@ class Paper(models.Model):
         default='https://github.com/Ajay2810-hub/Ebooks/raw/master/default/images/image_unavailable.jpg'
     )
     tags = models.URLField(max_length=200)
-    create_date = models.DateField(auto_now_add=True)
+    create_date = models.DateField(default=timezone.now())
     downloads = models.BigIntegerField(default=0)
     history = HistoricalRecords()
 
