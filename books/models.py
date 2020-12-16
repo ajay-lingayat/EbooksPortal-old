@@ -21,7 +21,6 @@ class Book(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['create_date']
         db_table = 'ep_book'
         verbose_name = 'book'
         verbose_name_plural = 'books'

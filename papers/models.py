@@ -18,7 +18,6 @@ class Paper(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['-create_date']
         db_table = 'ep_paper'
         verbose_name = 'paper'
         verbose_name_plural = 'papers'
