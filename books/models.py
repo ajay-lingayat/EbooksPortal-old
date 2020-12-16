@@ -1,6 +1,4 @@
 from django.db import models
-from django.utils import timezone
-
 from simple_history.models import HistoricalRecords
 
 # Create your models here.
@@ -15,7 +13,7 @@ class Book(models.Model):
         max_length=200,
         default='https://github.com/Ajay2810-hub/Ebooks/blob/master/default/tags/tag.txt'
     )
-    create_date = models.DateField(default=timezone.now())
+    create_date = models.DateField(auto_now_add=True)
     downloads = models.BigIntegerField(default=0)
     history = HistoricalRecords()
 
