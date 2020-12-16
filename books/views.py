@@ -17,12 +17,9 @@ def all_books(request):
         lst = [i]
         lst1 = list()
 
-        downloads = len(book_download.objects.filter(book=i.id))
-
         tags_lnk = i.tags.replace('blob', 'raw')
 
         r = requests.get(tags_lnk)
-
         if r.status_code == 200:
            r = r.text
            r = r.split('\n')
@@ -31,7 +28,6 @@ def all_books(request):
                   lst1.append(tag)
 
         lst.append(lst1)
-        lst.append(downloads)
         books.append(lst)
 
     paginator = Paginator(
@@ -72,7 +68,6 @@ def query(request, query):
         query = False
 
     if query:
-       
        obj = book.objects.all()
 
        books = list()
@@ -100,12 +95,9 @@ def query(request, query):
            lst = [i]
            lst1 = list()
 
-           dowloads = len(book_download.objects.filter(book=i.id))
-
            tags_lnk = i.tags.replace('blob', 'raw')
 
            r = requests.get(tags_lnk)
-
            if r.status_code == 200:
               r = r.text
               r = r.split('\n')
@@ -114,7 +106,6 @@ def query(request, query):
                      lst1.append(tag)
 
            lst.append(lst1)
-           lst.append(dowloads)
            bks.append(lst)
 
        paginator = Paginator(
@@ -146,16 +137,11 @@ def open_portal(request, id_no):
 
     if book.objects.filter(id=id_no).exists():
         obj = book.objects.get(id=id_no)
-
         bk = [obj, []]
-
-        dowloads = len(book_download.objects.filter(book=obj.id))
-        bk.append(dowloads)
 
         tags_lnk = obj.tags.replace('blob', 'raw')
 
         r = requests.get(tags_lnk)
-
         if r.status_code == 200:
             r = r.text
             r = r.split('\n')
@@ -178,21 +164,16 @@ def open_portal(request, id_no):
 
 
 def mark_download(request):
-
-    bk_id = request.GET.get('bk_id', None)
-    
-    ans = False
-
     try:
-        if bk_id is not None:
+        bk_id = request.GET.get('bk_id', False)
+        ans = False
+        if bk_id:
             bk = book.objects.get(id=bk_id)
-            obj = book_download.objects.create(book=bk)
-            obj.save()
+            bk.downloads += 1
+            bk.save()
             ans = True
+        return JsonResponse({'ans': ans})
     except Exception as e:
+        print('Error incrementing book download')
         print(e)
-
-    data = {
-        'ans': ans,
-    }
-    return JsonResponse(data)
+        return JsonResponse({'ans':False})

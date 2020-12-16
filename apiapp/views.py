@@ -44,11 +44,6 @@ class BooksViewset(ModelViewSet):
     filterset_class = BooksFilter
     queryset = book.objects.all()
 
-class BookDownloadsViewset(ModelViewSet):
-    serializer_class = BookDownloadsSerializer
-    filterset_class= BookDownloadsFilter
-    queryset = book_download.objects.all()
-
 class BookSectionsViewset(ModelViewSet):
     serializer_class = BookSectionsSerializer
     filterset_class = BookSectionsFilter
@@ -62,8 +57,12 @@ class AllCountsViewset(APIView):
         users = User.objects.all().count()
         books = book.objects.all().count()
         papers = paper.objects.all().count()
-        book_downloads = book_download.objects.all().count()
-        paper_downloads = paper_download.objects.all().count()
+        book_downloads = 0
+        for bk in book.objects.all():
+            book_downloads += bk.downloads
+        paper_downloads = 0
+        for pr in paper.objects.all():
+            paper_downloads += pr.downloads
         total_downloads = book_downloads + paper_downloads
 
         return Response(
@@ -81,11 +80,6 @@ class PapersViewset(ModelViewSet):
     serializer_class = PapersSerializer
     filterset_class = PapersFilter
     queryset = paper.objects.all()
-
-class PaperDownloadsViewset(ModelViewSet):
-    serializer_class = PaperDownloadsSerializer
-    filterset_class = PaperDownloadsFilter
-    queryset = paper_download.objects.all()
 
 class PaperSectionsViewset(ModelViewSet):
     serializer_class = PaperSectionsSerializer

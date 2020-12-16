@@ -13,24 +13,15 @@ class book(models.Model):
         default='https://github.com/Ajay2810-hub/Ebooks/blob/master/default/tags/tag.txt'
     )
     date = models.DateField(auto_now_add=True)
+    downloads = models.BigIntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Book'
-
-class book_download(models.Model):
-    book = models.ForeignKey(
-        book,
-        on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.book.title
-
-    class Meta:
-        verbose_name = 'Book Download'
+        db_table = 'ep_book'
+        verbose_name = 'book'
+        verbose_name_plural = 'books'
 
 class book_section(models.Model):
     text = models.CharField(max_length=50)
@@ -39,4 +30,6 @@ class book_section(models.Model):
         return self.text
 
     class Meta:
-        verbose_name = 'Book Section'
+        db_table = 'ep_book_section'
+        verbose_name = 'book section'
+        verbose_name_plural = 'book sections'

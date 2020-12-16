@@ -6,8 +6,7 @@ from .forms import *
 from django.core.mail import send_mail
 import os
 from django.contrib.auth.models import User, auth
-from books.models import *
-from papers.models import *
+from .models import *
 import requests
 from django.core.paginator import Paginator
 from .Random import *
@@ -15,12 +14,19 @@ import random
 from EbooksPortal.settings import EMAIL_HOST_USER, TO
 
 # Create your views here.
+def null(request):
+    return HttpResponse('Hey!')
+
 def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
 
-    bd = len(book_download.objects.all())
-    pd = len(paper_download.objects.all())
+    bd = 0
+    for bk in book.objects.all():
+        bd += bk.downloads
+    pd = 0
+    for pr in paper.objects.all():
+        pd += pr.downloads
     td = bd+pd
 
     form = ContactForm()
@@ -35,13 +41,8 @@ def home( request ):
 
         bks = list()
         for bk in obj1:
-
-            dowloads = len(book_download.objects.filter(book=bk.id))
-            
             tag_lnk = bk.tags.replace('blob', 'raw')
-
             found = False
-
             tags_lst = list()
 
             r = requests.get(tag_lnk)
@@ -56,12 +57,12 @@ def home( request ):
 
             if found:
                bks.append(
-                   [bk, tags_lst, dowloads]
+                   [bk, tags_lst]
                )
 
             if not found and txt in bk.title.lower():
                bks.append(
-                   [bk, tags_lst, dowloads]
+                   [bk, tags_lst]
                )
         lst.append(
             [i, bks]
@@ -79,13 +80,8 @@ def home( request ):
 
         prs = list()
         for pr in obj1:
-
-            dowloads = len(paper_download.objects.filter(paper=bk.id))
-            
             tag_lnk = pr.tags.replace('blob', 'raw')
-
             found = False
-
             tags_lst = list()
 
             r = requests.get(tag_lnk)
@@ -100,12 +96,12 @@ def home( request ):
 
             if found:
                prs.append(
-                   [pr, tags_lst, dowloads]
+                   [pr, tags_lst]
                )
 
             if not found and txt in pr.title.lower():
                prs.append(
-                   [pr, tags_lst, dowloads]
+                   [pr, tags_lst]
                )
         lst.append(
             [i, prs]

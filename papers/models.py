@@ -10,24 +10,15 @@ class paper(models.Model):
     )
     tags = models.URLField(max_length=200)
     date = models.DateField(auto_now_add=True)
+    downloads = models.BigIntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Paper'
-
-class paper_download(models.Model):
-    paper = models.ForeignKey(
-        paper,
-        on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.paper.title
-
-    class Meta:
-        verbose_name = 'Paper Download'
+        db_table = 'ep_paper'
+        verbose_name = 'paper'
+        verbose_name_plural = 'papers'
 
 class paper_section(models.Model):
     text = models.CharField(max_length=50)
@@ -36,4 +27,6 @@ class paper_section(models.Model):
         return self.text
 
     class Meta:
-        verbose_name = 'Paper Section'
+        db_table = 'ep_paper_section'
+        verbose_name = 'paper section'
+        verbose_name_plural = 'paper sections'

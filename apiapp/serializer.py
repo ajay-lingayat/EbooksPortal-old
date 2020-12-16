@@ -36,12 +36,6 @@ class BooksSerializer(ModelSerializer):
         model = book
         fields = '__all__'
 
-class BookDownloadsSerializer(ModelSerializer):
-    book = BooksSerializer()
-    class Meta:
-        model = book
-        fields = ('id', 'book')
-
 class BookSectionsSerializer(ModelSerializer):
     class Meta:
         model = book_section
@@ -51,12 +45,6 @@ class PapersSerializer(ModelSerializer):
     class Meta:
         model = paper
         fields = '__all__'
-
-class PaperDownloadsSerializer(ModelSerializer):
-    paper = PapersSerializer()
-    class Meta:
-        model = paper_download
-        fields = ('id', 'paper')
 
 class PaperSectionsSerializer(ModelSerializer):
     class Meta:

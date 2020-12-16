@@ -17,12 +17,9 @@ def all_papers(request):
         lst = [i]
         lst1 = list()
 
-        downloads = len(paper_download.objects.filter(paper=i.id))
-
         tags_lnk = i.tags.replace('blob', 'raw')
 
         r = requests.get(tags_lnk)
-
         if r.status_code == 200:
            r = r.text
            r = r.split('\n')
@@ -31,7 +28,6 @@ def all_papers(request):
                   lst1.append(tag)
 
         lst.append(lst1)
-        lst.append(downloads)
         papers.append(lst)
 
     paginator = Paginator(
@@ -100,12 +96,9 @@ def query(request, query):
            lst = [i]
            lst1 = list()
 
-           dowloads = len(paper_download.objects.filter(paper=i.id))
-
            tags_lnk = i.tags.replace('blob', 'raw')
 
            r = requests.get(tags_lnk)
-
            if r.status_code == 200:
               r = r.text
               r = r.split('\n')
@@ -114,7 +107,6 @@ def query(request, query):
                      lst1.append(tag)
 
            lst.append(lst1)
-           lst.append(dowloads)
            prs.append(lst)
 
        paginator = Paginator(
@@ -146,16 +138,11 @@ def open_portal(request, id_no):
 
     if paper.objects.filter(id=id_no).exists():
         obj = paper.objects.get(id=id_no)
-
         pr = [obj, []]
-
-        dowloads = len(paper_download.objects.filter(paper=obj.id))
-        pr.append(dowloads)
 
         tags_lnk = obj.tags.replace('blob', 'raw')
 
         r = requests.get(tags_lnk)
-
         if r.status_code == 200:
             r = r.text
             r = r.split('\n')
@@ -176,23 +163,17 @@ def open_portal(request, id_no):
     else:
        raise Http404()
 
-
 def mark_download(request):
-
-    paper_id = request.GET.get('paper_id', None)
-    
-    ans = False
-
     try:
-        if paper_id is not None:
+        paper_id = request.GET.get('paper_id', False)
+        ans = False
+        if paper_id:
             pr = paper.objects.get(id=paper_id)
-            obj = paper_download.objects.create(paper=pr)
-            obj.save()
+            pr.downloads += 1
+            pr.save()
             ans = True
+        return JsonResponse({'ans':ans})
     except Exception as e:
+        print('Error incrementing book download')
         print(e)
-
-    data = {
-        'ans': ans,
-    }
-    return JsonResponse(data)
+        return JsonResponse({'ans':False})
