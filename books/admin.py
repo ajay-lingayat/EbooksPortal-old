@@ -6,7 +6,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 # Register your models here.
 class BookHistoryAdmin(SimpleHistoryAdmin):
-    list_display = ['id', 'title', 'downloads']
+    list_display = ['id', 'title', 'downloads', 'create_date']
     history_list_display = ['status']
     search_fields = ['id', 'title', 'downloads']
 
