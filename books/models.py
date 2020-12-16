@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 # Create your models here.
 class Book(models.Model):
@@ -14,6 +15,7 @@ class Book(models.Model):
     )
     date = models.DateField(auto_now_add=True)
     downloads = models.BigIntegerField(default=0)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.title
@@ -25,6 +27,7 @@ class Book(models.Model):
 
 class BookSection(models.Model):
     text = models.CharField(max_length=50)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.text
