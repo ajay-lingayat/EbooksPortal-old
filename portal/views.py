@@ -14,9 +14,6 @@ from .Random import *
 from EbooksPortal.settings import EMAIL_HOST_USER, TO
 
 # Create your views here.
-def null(request):
-    return HttpResponse('Hey!')
-
 def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
