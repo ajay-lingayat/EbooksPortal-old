@@ -53,3 +53,19 @@ footer .foot{
 footer .foot a{
 	color: #2c3e51;
 }
+.toast{
+	position: fixed !important;
+	color: #fff !important;
+	z-index: 999 !important;
+	top: 20px;
+	left: 50px;
+	width: 200px !important;
+	font-size: large !important;
+	border: .5px solid #1d2124;
+}
+.toast .close{
+	outline: none !important;
+}
+.toast .close span{
+	color: #fff !important;
+}
