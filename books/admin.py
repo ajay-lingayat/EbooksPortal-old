@@ -9,7 +9,8 @@ class BookHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'title', 'create_date', 'downloads']
     history_list_display = ['status']
     search_fields = ['id', 'title', 'downloads']
-    readonly_fields=('downloads', 'create_date')
+    readonly_fields = ('downloads', 'create_date')
+    list_filter = ['create_date',]
 
 class BookSectionHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'text']

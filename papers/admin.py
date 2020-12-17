@@ -10,6 +10,7 @@ class PaperHistoryAdmin(SimpleHistoryAdmin):
     history_list_display = ['status']
     search_fields = ['id', 'title', 'downloads']
     readonly_fields=('downloads', 'create_date')
+    list_filter = ['create_date',]
 
 class PaperSectionHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'text']
