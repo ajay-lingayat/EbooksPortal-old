@@ -8,8 +8,9 @@ from simple_history.admin import SimpleHistoryAdmin
 class BookHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'title', 'create_date', 'downloads']
     history_list_display = ['status']
-    search_fields = ['id', 'title', 'downloads']
+    search_fields = ['title',]
     readonly_fields=('downloads', 'create_date')
+    list_filter = ['id', 'downloads']
 
 class BookSectionHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'text']
