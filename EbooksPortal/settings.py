@@ -201,11 +201,6 @@ LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'APP': {
-            'client_id': '908927361319-t7tcdpva7lldmgd53af595csueq9ev6b.apps.googleusercontent.com',
-            'secret': 'IScf7UUT1wqTrpCBxh5jAw6X',
-            'key': ''
-        },
         'SCOPE': [
             'profile',
             'email',
@@ -215,10 +210,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     },
    'github': {
-         'APP': {
-             'client_id': '84154bec7e7ddea6afa0',
-             'secret': '83afebf6a0e5db72641426883b297badee559fad'
-         },
          'SCOPE': [
             'user',
             'read:org',
