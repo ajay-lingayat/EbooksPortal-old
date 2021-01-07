@@ -11,6 +11,7 @@ class BookHistoryAdmin(SimpleHistoryAdmin):
     search_fields = ['id', 'title', 'downloads']
     readonly_fields = ('downloads', 'create_date')
     list_filter = ['create_date',]
+    date_hierarchy = 'create_date'
 
 class BookSectionHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'text']
