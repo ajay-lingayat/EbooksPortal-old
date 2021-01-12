@@ -91,10 +91,10 @@ if __name__ == "__main__":
             console.info('COMMAND', 'python manage.py createsuperuser')
             main(commands=['manage.py', 'createsuperuser'])
     except Exception as e:
-        pass
+        console.danger(e)
 
     try:
         if "loaddata" in sys.argv:
             db.load_data()
     except Exception as e:
-        pass
+        console.danger(e)
