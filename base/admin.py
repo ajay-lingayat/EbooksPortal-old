@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 from .models import *
 
@@ -48,6 +48,11 @@ class CustomEmailAddressAdmin(EmailAddressAdmin):
         self.actions = [verify_emails, unverify_emails]
         self.empty_value_display = 'NA'
         super(EmailAddressAdmin, self).__init__(*args, **kwargs)
+        
+class CustomGroupAdmin(GroupAdmin):
+    def __init__(self, *args, **kwargs):
+        self.list_display = ('id',)+self.list_display
+        super(GroupAdmin, self).__init__(*args, **kwargs)
 
 TokenAdmin.list_display = ('pk',)+TokenAdmin.list_display
 TokenAdmin.search_fields = ['key', 'user__username']
@@ -59,3 +64,5 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.unregister(EmailAddress)
 admin.site.register(EmailAddress, CustomEmailAddressAdmin)
+admin.site.unregister(Group)
+admin.site.register(Group, CustomGroupAdmin)
