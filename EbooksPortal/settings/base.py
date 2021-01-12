@@ -16,6 +16,15 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+KEY = BASE_DIR / 'secrets.json'
+SECRETS = json.loads(open(KEY, 'r').read())
+
+def get_secret(setting, secrets=SECRETS):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error = f'Set the {setting} environment variable.'
+        raise ImproperlyConfigured(error)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
