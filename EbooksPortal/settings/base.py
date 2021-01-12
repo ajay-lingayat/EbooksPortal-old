@@ -40,6 +40,12 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+MODEL_APPS = [
+    'books',
+    'portal',
+    'papers',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,9 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     
-    'books',
-    'portal',
-    'papers',
     'apis',
     
     'allauth',
@@ -67,7 +70,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     'simple_history'
-]
+] + MODEL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
