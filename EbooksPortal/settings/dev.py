@@ -1,23 +1,18 @@
 from .base import *
 
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    },
-   'github': {
-         'SCOPE': [
-            'user',
-            'read:org',
-        ],
-   }
-}
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_DATA = get_secret('EMAIL')
+    EMAIL_BACKEND = get_secret('BACKEND', secrets=EMAIL_DATA)
+    EMAIL_HOST_USER = get_secret('USER', secrets=EMAIL_DATA)
+    EMAIL_HOST_PASSWORD = get_secret('PASSWORD', secrets=EMAIL_DATA)
+    EMAIL_HOST = get_secret('HOST', secrets=EMAIL_DATA)
+    EMAIL_PORT = get_secret('PORT', secrets=EMAIL_DATA)
+    EMAIL_USE_TLS = get_secret('USE_TLS', secrets=EMAIL_DATA)
+    EMAIL_USE_SSL = get_secret('USE_SSL', secrets=EMAIL_DATA)
+    TO = get_secret('TO', secrets=EMAIL_DATA)
 
 
 REST_FRAMEWORK = {

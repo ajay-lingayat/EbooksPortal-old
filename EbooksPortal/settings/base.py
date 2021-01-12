@@ -78,7 +78,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'EbooksPortal.urls'
@@ -179,23 +178,11 @@ STATIC_ROOT = BASE_DIR / 'assets'
 STATICFILES_DIRS =[
     BASE_DIR / 'static',
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 SITE_ID = 1
-
-
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_DATA = get_secret('EMAIL')
-    EMAIL_BACKEND = get_secret('BACKEND', secrets=EMAIL_DATA)
-    EMAIL_HOST_USER = get_secret('USER', secrets=EMAIL_DATA)
-    EMAIL_HOST_PASSWORD = get_secret('PASSWORD', secrets=EMAIL_DATA)
-    EMAIL_HOST = get_secret('HOST', secrets=EMAIL_DATA)
-    EMAIL_PORT = get_secret('PORT', secrets=EMAIL_DATA)
-    EMAIL_USE_TLS = get_secret('USE_TLS', secrets=EMAIL_DATA)
-    EMAIL_USE_SSL = get_secret('USE_SSL', secrets=EMAIL_DATA)
-    TO = get_secret('TO', secrets=EMAIL_DATA)
 
 
 RECAPTCHA_DATA = get_secret('RECAPTCHA')
@@ -215,3 +202,21 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+   'github': {
+         'SCOPE': [
+            'user',
+            'read:org',
+        ],
+   }
+}
