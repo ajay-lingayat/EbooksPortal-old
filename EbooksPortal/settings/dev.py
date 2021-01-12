@@ -13,7 +13,8 @@ SEED_MODELS = [
     'books.Book',
     'books.BookSection',
     'papers.Paper',
-    'papers.PaperSection'
+    'papers.PaperSection',
+    'authtoken.token'
 ]
 
 
