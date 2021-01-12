@@ -11,7 +11,7 @@ import os, requests
 from .forms import *
 from .models import *
 from .Random import *
-from EbooksPortal.settings import EMAIL_HOST_USER, TO
+from django.conf import settings
 
 # Create your views here.
 def home( request ):
@@ -131,8 +131,8 @@ def contact( request ):
            send_mail(
                subject,
                mail_message,
-               EMAIL_HOST_USER,
-               [TO],
+               settings.EMAIL_HOST_USER,
+               [ settings.TO ],
                fail_silently=False,
            )
            messages.success(
