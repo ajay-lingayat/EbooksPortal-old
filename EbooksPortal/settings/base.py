@@ -26,6 +26,7 @@ def get_secret(setting, secrets=SECRETS):
         error = f'Set the {setting} environment variable.'
         raise ImproperlyConfigured(error)
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -39,12 +40,6 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
-MODEL_APPS = [
-    'books',
-    'base',
-    'papers',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,7 +65,8 @@ INSTALLED_APPS = [
     'django_filters',
 
     'simple_history',
-] + MODEL_APPS
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
