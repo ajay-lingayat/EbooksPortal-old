@@ -30,16 +30,13 @@ def home( request ):
 
     form = ContactForm()
 
-    obj = BookSection.objects.all()
+    sections = BookSection.objects.all()
     lst = list()
-    for i in obj:
-        txt = i.text.lower().replace(' books', '')
-
-        obj1 = Book.objects.all()
+    for section in sections:
+        books = section.books.all()
         bks = list()
-        for book in obj1:
+        for book in books:
             tag_lnk = book.tags.replace('blob', 'raw')
-            found = False
             tags_lst = list()
 
             r = requests.get(tag_lnk)
@@ -49,28 +46,18 @@ def home( request ):
                for tag in tags:
                    if str(tag).strip():
                       tags_lst.append(tag)
-                   if txt == str(tag).lower():
-                      found = True
+            bks.append([book, tags_lst])
 
-            if found:
-               bks.append([book, tags_lst])
-
-            if not found and txt in book.title.lower():
-               bks.append([book, tags_lst])
-
-        lst.append([i, bks])
+        lst.append([section, bks])
     bk_sections = pick3(lst)
 
-    obj = PaperSection.objects.all()
+    sections = PaperSection.objects.all()
     lst = list()
-    for i in obj:
-        txt = i.text.lower().replace(' papers', '')
-
-        obj1 = Paper.objects.all()
+    for section in sections:
+        papers = Paper.objects.all()
         prs = list()
-        for paper in obj1:
+        for paper in papers:
             tag_lnk = paper.tags.replace('blob', 'raw')
-            found = False
             tags_lst = list()
 
             r = requests.get(tag_lnk)
@@ -80,15 +67,8 @@ def home( request ):
                for tag in tags:
                    if str(tag).strip():
                       tags_lst.append(tag)
-                   if txt == str(tag).lower():
-                      found = True
-
-            if found:
-               prs.append([paper, tags_lst])
-
-            if not found and txt in paper.title.lower():
-               prs.append([paper, tags_lst])
-        lst.append([i, prs])
+            prs.append([paper, tags_lst])
+        lst.append([section, prs])
 
     pr_sections = pick3(lst)
 
