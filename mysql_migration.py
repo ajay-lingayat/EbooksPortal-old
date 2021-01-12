@@ -1,0 +1,73 @@
+import sys
+
+import mysql.connector as connector
+from ConsoleMessenger import ConsoleMessage
+
+from manage import main
+from EbooksPortal.settings.base import MODEL_APPS, DATABASES
+
+console = ConsoleMessage()
+
+class Database:
+    def __init__(self, commands):
+        if len(commands) < 2:
+            console.danger('Database credentials not provided!')
+            exit(0)
+        elif len(commands) == 2:
+            console.danger('Password not provided!')
+            exit(0)
+
+        self.commands = commands
+        self.user = commands[1]
+        self.password = commands[2]
+    
+    def create(self):
+        try:
+            mydb = connector.connect(
+                host='localhost',
+                user=self.user,
+                password=self.password
+            )
+            mycursor = mydb.cursor()
+
+            for key in DATABASES.keys():
+                db = DATABASES[key]
+
+                raw_queries = [
+                    f"CREATE DATABASE {db['NAME']};",
+                    f"CREATE USER '{db['USER']}'@'localhost' IDENTIFIED BY '{db['PASSWORD']}';",
+                    f"GRANT ALL PRIVILEGES ON {db['NAME']}.* TO '{db['USER']}'@'localhost';",
+                ]
+                for raw_query in raw_queries:
+                    try:
+                        output = mycursor.execute(raw_query)
+                        console.success('Success', output)
+                    except Exception as e:
+                        console.danger(e)
+
+            mydb.commit()
+        except Exception as e:
+            console.danger('Error in Database Creation.')
+            console.danger(e)
+
+    def migrate(self):
+        try:
+            commands = ['manage.py', 'makemigrations']+MODEL_APPS
+            main(commands=commands)
+            main(commands=['manage.py', 'migrate'])
+        except Exception as e:
+            console.danger('Error in Database Migration.')
+            console.danger(e)
+
+
+if __name__ == "__main__":
+    db = Database(sys.argv)
+    db.create()
+    db.migrate()
+    
+    try:
+        if sys.argv[3] == "createsuperuser":
+            print('python manage.py createsuperuser')
+            main(commands=['manage.py', 'createsuperuser'])
+    except Exception as e:
+        pass
