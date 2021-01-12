@@ -42,7 +42,7 @@ ALLOWED_HOSTS = ['*']
 
 MODEL_APPS = [
     'books',
-    'portal',
+    'base',
     'papers',
 ]
 
@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
 
-    'simple_history'
+    'simple_history',
 ] + MODEL_APPS
 
 MIDDLEWARE = [

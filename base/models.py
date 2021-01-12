@@ -3,6 +3,6 @@ from django.contrib.auth.models import *
 
 from books.models import *
 from papers.models import *
-from portal.models import *
+from .models import *
 
 # Create your models here.

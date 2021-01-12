@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('portal.urls')),
+    path('', include('base.urls')),
     path('books/', include('books.urls')),
     path('papers/', include('papers.urls')),
     path('accounts/', include('allauth.urls')),
@@ -29,6 +29,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-handler403 = 'portal.errors.error403'
-handler404 = 'portal.errors.error404'
-handler500 = 'portal.errors.error500'
+handler403 = 'base.errors.error403'
+handler404 = 'base.errors.error404'
+handler500 = 'base.errors.error500'
