@@ -11,7 +11,7 @@ import os, requests
 from .forms import *
 from .models import *
 from .Random import *
-from EbooksPortal.settings import EMAIL_HOST_USER, TO
+from EbooksPortal.settings.dev import EMAIL_HOST_USER, TO
 
 # Create your views here.
 def home( request ):
