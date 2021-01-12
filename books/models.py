@@ -26,11 +26,15 @@ class Book(models.Model):
         verbose_name_plural = 'books'
 
 class BookSection(models.Model):
-    text = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    books = models.ManyToManyField(
+        Book,
+        blank=True
+    )
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.text
+        return self.name
 
     class Meta:
         db_table = 'ep_book_section'
