@@ -49,6 +49,8 @@ class CustomEmailAddressAdmin(EmailAddressAdmin):
         self.empty_value_display = 'NA'
         super(EmailAddressAdmin, self).__init__(*args, **kwargs)
 
+TokenAdmin.list_display = ('pk',)+TokenAdmin.list_display
+TokenAdmin.search_fields = ['key', 'user__username']
 TokenAdmin.raw_id_fields = ['user']
 TokenAdmin.list_filter = ['created']
 TokenAdmin.date_hierarchy = 'created'
