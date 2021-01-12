@@ -1,0 +1,45 @@
+[
+{
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+        "title": "Applied Combinotrics",
+        "attachment": "https://github.com/Ajay2810-hub/Ebooks/blob/master/attachments/Applied_Combinatorics.pdf",
+        "image": "https://github.com/Ajay2810-hub/Ebooks/blob/master/images/Applied_Combinotrics.jpg",
+        "tags": "https://github.com/Ajay2810-hub/Ebooks/blob/master/book_tags/Applied_Combinotrics_tags.txt",
+        "create_date": "2021-01-12",
+        "downloads": 0
+    }
+},
+{
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+        "title": "Database System Concepts",
+        "attachment": "https://github.com/Ajay2810-hub/Ebooks/blob/master/attachments/Database_System_Concepts.pdf",
+        "image": "https://github.com/Ajay2810-hub/Ebooks/blob/master/images/Database_System_Concepts.jpg",
+        "tags": "https://github.com/Ajay2810-hub/Ebooks/blob/master/book_tags/Database_System_Concepts.txt",
+        "create_date": "2021-01-12",
+        "downloads": 0
+    }
+},
+{
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+        "title": "Theory Of Computation",
+        "attachment": "https://github.com/Ajay2810-hub/Ebooks/blob/master/attachments/toc_klp_mishra.pdf",
+        "image": "https://github.com/Ajay2810-hub/Ebooks/blob/master/images/Theory_of_Computation.jpg",
+        "tags": "https://github.com/Ajay2810-hub/Ebooks/blob/master/book_tags/Theory_Of_Computation.txt",
+        "create_date": "2021-01-12",
+        "downloads": 0
+    }
+},
+{
+    "model": "books.booksection",
+    "pk": 1,
+    "fields": {
+        "text": "SYCS Books"
+    }
+}
+]
