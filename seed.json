@@ -39,7 +39,12 @@
         "model": "books.booksection",
         "pk": 1,
         "fields": {
-            "text": "SYCS Books"
+            "name": "SYCS Books",
+            "books": [
+                1,
+                2,
+                3
+            ]
         }
     },
     {
@@ -858,5 +863,5 @@
             "content_type": 22,
             "codename": "view_historicalpaper"
         }
-}
+    }
 ]
