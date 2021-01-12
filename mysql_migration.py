@@ -6,6 +6,7 @@ from ConsoleMessenger import ConsoleMessage
 from manage import main
 from EbooksPortal.settings.dev import DATABASES, MODEL_APPS, SEED_MODELS
 
+global console
 console = ConsoleMessage()
 
 class Database:
@@ -53,8 +54,12 @@ class Database:
     def migrate(self):
         try:
             commands = ['manage.py', 'makemigrations']+MODEL_APPS
+            console.info('COMMAND', ' '.join(commands))
             main(commands=commands)
-            main(commands=['manage.py', 'migrate'])
+
+            commands = ['manage.py', 'migrate']
+            console.info('COMMAND', ' '.join(commands))
+            main(commands=commands)
         except Exception as e:
             console.danger('Error in Database Migration.')
             console.danger(e)
@@ -66,12 +71,14 @@ class Database:
             commands = ['manage.py', 'dumpdata'] + SEED_MODELS
             commands += ['--format=json', '--indent=4']
             command = f'python {" ".join(commands)} > seed.json'
-            print(command)
+            console.info('COMMAND', command)
             os.system(command)
             found = os.path.isfile('seed.json')
 
         if found:
-            main(commands=['manage.py', 'loaddata', 'seed.json'])
+            commands = ['manage.py', 'loaddata', 'seed.json']
+            console.info('COMMAND', ' '.join(commands))
+            main(commands=commands)
 
 
 if __name__ == "__main__":
@@ -81,7 +88,7 @@ if __name__ == "__main__":
     
     try:
         if "createsuperuser" in sys.argv:
-            print('python manage.py createsuperuser')
+            console.info('COMMAND', 'python manage.py createsuperuser')
             main(commands=['manage.py', 'createsuperuser'])
     except Exception as e:
         pass
