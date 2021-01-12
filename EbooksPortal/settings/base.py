@@ -215,22 +215,3 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 LOGIN_REDIRECT_URL = '/'
-
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    },
-   'github': {
-         'SCOPE': [
-            'user',
-            'read:org',
-        ],
-   }
-}

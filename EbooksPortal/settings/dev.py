@@ -1,5 +1,25 @@
 from .base import *
 
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    },
+   'github': {
+         'SCOPE': [
+            'user',
+            'read:org',
+        ],
+   }
+}
+
+
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_VERSION' : 'v1',
