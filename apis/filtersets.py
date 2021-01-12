@@ -63,7 +63,8 @@ class BookSectionsFilter(rest_framework.FilterSet):
     class Meta:
         model = BookSection
         fields = {
-            'id': ['exact']
+            'id': ['exact'],
+            'name': ['exact']
         }
 
 class PapersFilter(rest_framework.FilterSet):
@@ -79,5 +80,6 @@ class PaperSectionsFilter(rest_framework.FilterSet):
     class Meta:
         model = PaperSection
         fields = {
-            'id': ['exact']
+            'id': ['exact'],
+            'name': ['exact']
         }
