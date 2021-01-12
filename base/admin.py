@@ -6,6 +6,7 @@ from .models import *
 
 from allauth.account.models import EmailAddress
 from allauth.account.admin import EmailAddressAdmin
+from rest_framework.authtoken.admin import TokenAdmin
 
 # Register your models here.
 AdminSite.site_header = 'EbooksPortal administration'
@@ -47,6 +48,10 @@ class CustomEmailAddressAdmin(EmailAddressAdmin):
         self.actions = [verify_emails, unverify_emails]
         self.empty_value_display = 'NA'
         super(EmailAddressAdmin, self).__init__(*args, **kwargs)
+
+TokenAdmin.raw_id_fields = ['user']
+TokenAdmin.list_filter = ['created']
+TokenAdmin.date_hierarchy = 'created'
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
