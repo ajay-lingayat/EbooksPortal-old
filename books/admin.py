@@ -14,9 +14,10 @@ class BookHistoryAdmin(SimpleHistoryAdmin):
     date_hierarchy = 'create_date'
 
 class BookSectionHistoryAdmin(SimpleHistoryAdmin):
-    list_display = ['id', 'text']
+    list_display = ['id', 'name']
     history_list_display = ['status']
-    search_fields = ['id', 'text']
+    search_fields = ['id', 'name']
+    filter_horizontal = ('books',)
 
 admin.site.register(Book, BookHistoryAdmin)
 admin.site.register(BookSection, BookSectionHistoryAdmin)
