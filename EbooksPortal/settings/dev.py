@@ -1,6 +1,22 @@
 from .base import *
 
 
+MODEL_APPS = [
+    'books',
+    'base',
+    'papers',
+]
+INSTALLED_APPS += MODEL_APPS
+
+
+SEED_MODELS = [
+    'books.Book',
+    'books.BookSection',
+    'papers.Paper',
+    'papers.PaperSection'
+]
+
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
