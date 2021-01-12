@@ -1,10 +1,10 @@
-import sys
+import sys, os
 
 import mysql.connector as connector
 from ConsoleMessenger import ConsoleMessage
 
 from manage import main
-from EbooksPortal.settings.base import MODEL_APPS, DATABASES
+from EbooksPortal.settings.dev import DATABASES, MODEL_APPS, SEED_MODELS
 
 console = ConsoleMessage()
 
@@ -59,6 +59,20 @@ class Database:
             console.danger('Error in Database Migration.')
             console.danger(e)
 
+    def load_data(self):
+        found = os.path.isfile('seed.json')
+
+        if not found:
+            commands = ['manage.py', 'dumpdata'] + SEED_MODELS
+            commands += ['--format=json', '--indent=4']
+            command = f'python {" ".join(commands)} > seed.json'
+            print(command)
+            os.system(command)
+            found = os.path.isfile('seed.json')
+
+        if found:
+            main(commands=['manage.py', 'loaddata', 'seed.json'])
+
 
 if __name__ == "__main__":
     db = Database(sys.argv)
@@ -66,8 +80,14 @@ if __name__ == "__main__":
     db.migrate()
     
     try:
-        if sys.argv[3] == "createsuperuser":
+        if "createsuperuser" in sys.argv:
             print('python manage.py createsuperuser')
             main(commands=['manage.py', 'createsuperuser'])
+    except Exception as e:
+        pass
+
+    try:
+        if "loaddata" in sys.argv:
+            db.load_data()
     except Exception as e:
         pass
