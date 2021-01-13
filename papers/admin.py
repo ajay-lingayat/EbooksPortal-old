@@ -12,6 +12,7 @@ class PaperHistoryAdmin(SimpleHistoryAdmin):
     readonly_fields=('downloads', 'create_date')
     list_filter = ['create_date',]
     date_hierarchy = 'create_date'
+    filter_horizontal = ('tags',)
 
 class PaperSectionHistoryAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'name']
