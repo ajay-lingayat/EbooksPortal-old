@@ -14,9 +14,13 @@ AdminSite.site_header = 'EbooksPortal administration'
 AdminSite.site_title = 'EbooksPortal administration'
 AdminSite.enable_nav_sidebar = False
 
+class BookInline(admin.TabularInline):
+    model = Book.tags.through
+
 class TagAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'name']
     search_fields = ['name']
+    inlines = [BookInline]
 
 def make_staff_member(modeladmin, request, queryset):
     queryset.update(is_staff=True)
