@@ -1,7 +1,12 @@
 from django.db import models
+from django.db.models import CharField
+from django.db.models.functions import Lower
+
 from simple_history.models import HistoricalRecords
 
 # Create your models here.
+CharField.register_lookup(Lower)
+
 class Paper(models.Model):
     title = models.CharField(max_length=500)
     attachment = models.URLField(max_length=200)
