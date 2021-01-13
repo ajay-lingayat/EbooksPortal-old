@@ -10,6 +10,7 @@ INSTALLED_APPS += MODEL_APPS
 
 
 SEED_MODELS = [
+    'base.Tag',
     'books.Book',
     'books.BookSection',
     'papers.Paper',
