@@ -7,11 +7,16 @@ from .models import *
 from allauth.account.models import EmailAddress
 from allauth.account.admin import EmailAddressAdmin
 from rest_framework.authtoken.admin import TokenAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
 # Register your models here.
 AdminSite.site_header = 'EbooksPortal administration'
 AdminSite.site_title = 'EbooksPortal administration'
 AdminSite.enable_nav_sidebar = False
+
+class TagAdmin(SimpleHistoryAdmin):
+    list_display = ['id', 'name']
+    search_fields = ['name']
 
 def make_staff_member(modeladmin, request, queryset):
     queryset.update(is_staff=True)
@@ -60,6 +65,7 @@ TokenAdmin.raw_id_fields = ['user']
 TokenAdmin.list_filter = ['created']
 TokenAdmin.date_hierarchy = 'created'
 
+admin.site.register(Tag, TagAdmin)
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.unregister(EmailAddress)
