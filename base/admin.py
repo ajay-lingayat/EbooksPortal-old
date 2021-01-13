@@ -17,10 +17,13 @@ AdminSite.enable_nav_sidebar = False
 class BookInline(admin.TabularInline):
     model = Book.tags.through
 
+class PaperInline(admin.TabularInline):
+    model = Paper.tags.through
+
 class TagAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'name']
     search_fields = ['name']
-    inlines = [BookInline]
+    inlines = [BookInline, PaperInline]
 
 def make_staff_member(modeladmin, request, queryset):
     queryset.update(is_staff=True)
