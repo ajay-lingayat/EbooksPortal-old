@@ -9,7 +9,9 @@ class Paper(models.Model):
         max_length=200,
         default='https://github.com/Ajay2810-hub/Ebooks/raw/master/default/images/image_unavailable.jpg'
     )
-    tags = models.URLField(max_length=200)
+    tags = models.ManyToManyField(
+        'base.Tag', blank=True
+    )
     create_date = models.DateField(auto_now_add=True)
     downloads = models.BigIntegerField(default=0)
     history = HistoricalRecords()
