@@ -1,42 +1,28 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.conf import settings
 from django.template import loader
 from django.contrib import messages
+from django.http import HttpResponse
 from django.core.mail import send_mail
-from django.contrib.auth.models import User, auth
 from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
 
 import os, requests
 
 from .forms import *
 from .models import *
-from .Random import *
-from django.conf import settings
 
 # Create your views here.
 def home( request ):
     nav_actives = [None for i in range(7)]
     nav_actives[0] = 'active'
 
-    book_downloads = 0
-    for book in Book.objects.all():
-        book_downloads += book.downloads
-
-    paper_downloads = 0
-    for paper in Paper.objects.all():
-        paper_downloads += paper.downloads
-        
+    book_downloads = sum([book.downloads for book in Book.objects.all()])
+    paper_downloads = sum([paper.downloads for paper in Paper.objects.all()])
     total_downloads = book_downloads+paper_downloads
-
     form = ContactForm()
-
-    sections = BookSection.objects.all()
-    sections = [[section, [[book, book.tags.all()] for book in section.books.all()]] for section in sections]
-    bk_sections = pick3(sections)
-
-    sections = PaperSection.objects.all()
-    sections = [[section, [[paper, paper.tags.all()] for paper in section.papers.all()]] for section in sections]
-    pr_sections = pick3(sections)
+    bk_sections = BookSection.objects.all()
+    pr_sections = PaperSection.objects.all()
 
     Context = {
         'form': form,

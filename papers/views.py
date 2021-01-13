@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, JsonResponse
 from django.template import loader
@@ -10,8 +11,7 @@ def all_papers(request):
     nav_actives = [None for i in range(7)]
     nav_actives[4] = 'active'
 
-    papers = Paper.objects.all()
-    papers = [[paper, paper.tags.all()] for paper in papers]
+    papers = Paper.objects.all().order_by('create_date')
 
     paginator = Paginator(
         papers,
@@ -51,18 +51,12 @@ def query(request, query):
         query = False
 
     if query:
-       obj = Paper.objects.all()
-       papers = list()
-       for paper in obj:
-           if paper.tags.filter(name=query).exists():
-               papers.append(paper)
-           elif query in paper.title.lower():
-              papers.append(paper)
-
-       papers = [[paper, paper.tags.all()] for paper in papers]
+       qlookup1 = Q(tags__name__lower=query)
+       qlookup2 = Q(title__lower__contains=query)
+       papers = Paper.objects.filter(qlookup1 | qlookup2).distinct()
 
        paginator = Paginator(
-           papers,
+           papers.order_by('create_date'),
            per_page=12
        )
        page_number = request.GET.get('page', 1)
@@ -87,14 +81,8 @@ def query(request, query):
 
 
 def open_portal(request, id_no):
-
     if Paper.objects.filter(id=id_no).exists():
-        paper = Paper.objects.get(id=id_no)
-        paper = [paper, [paper.tags.all()]]
-        
-        Context = {
-            'paper': paper,
-        }
+        Context = { 'paper': Paper.objects.get(id=id_no) }
         t = loader.get_template('papers/open_portal.html')
         return HttpResponse(
             t.render(

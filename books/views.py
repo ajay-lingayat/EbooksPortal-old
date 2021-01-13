@@ -1,18 +1,19 @@
+from django.db.models import Q
+from django.template import loader
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, JsonResponse
-from django.template import loader
+
 from .models import *
+
 import requests
-from django.core.paginator import Paginator
 
 # Create your views here.
 def all_books(request):
     nav_actives = [None for i in range(7)]
     nav_actives[3] = 'active'
 
-    books = Book.objects.all()
-    books = [[book, book.tags.all()] for book in books]
-
+    books = Book.objects.all().order_by('create_date')
     paginator = Paginator(
         books,
         per_page=12
@@ -51,18 +52,12 @@ def query(request, query):
         query = False
 
     if query:
-       obj = Book.objects.all()
-       books = list()
-       for book in obj:
-           if book.tags.filter(name=query).exists():
-              books.append(book)
-           elif query in book.title.lower():
-              books.append(book)
-
-       books = [[book, book.tags.all()] for book in books]
+       qlookup1 = Q(tags__name__lower=query)
+       qlookup2 = Q(title__lower__contains=query)
+       books = Book.objects.filter(qlookup1 | qlookup2).distinct()
 
        paginator = Paginator(
-           books,
+           books.order_by('create_date'),
            per_page=12
        )
        page_number = request.GET.get('page', 1)
@@ -89,8 +84,7 @@ def query(request, query):
 def open_portal(request, id_no):
 
     if Book.objects.filter(id=id_no).exists():
-        obj = Book.objects.get(id=id_no)
-        book = [obj, [obj.tags.all()]]
+        book = Book.objects.get(id=id_no)
         
         Context = {
             'book': book,
