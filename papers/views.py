@@ -10,24 +10,8 @@ def all_papers(request):
     nav_actives = [None for i in range(7)]
     nav_actives[4] = 'active'
 
-    obj = Paper.objects.all()
-    papers = list()
-    for i in obj:
-        lst = [i]
-        lst1 = list()
-
-        tags_lnk = i.tags.replace('blob', 'raw')
-
-        r = requests.get(tags_lnk)
-        if r.status_code == 200:
-           r = r.text
-           r = r.split('\n')
-           for tag in r:
-               if tag.replace(' ', ''):
-                  lst1.append(tag)
-
-        lst.append(lst1)
-        papers.append(lst)
+    papers = Paper.objects.all()
+    papers = [[paper, paper.tags.all()] for paper in papers]
 
     paginator = Paginator(
         papers,
@@ -70,43 +54,15 @@ def query(request, query):
        obj = Paper.objects.all()
        papers = list()
        for paper in obj:
-           tags_lnk = paper.tags.replace('blob', 'raw')
-
-           r = requests.get(tags_lnk)
-           if r.status_code == 200:
-              r = r.text
-              tags = r.split('\n')
-
-              found = False
-              for tag in tags:
-                  tag = tag.strip()
-                  if query == tag.lower():
-                     papers.append(paper)
-                     found = True
-
-           if not found and query in paper.title.lower():
+           if paper.tags.filter(name=query).exists():
+               papers.append(paper)
+           elif query in paper.title.lower():
               papers.append(paper)
 
-       prs = list()
-       for i in papers:
-           lst = [i]
-           lst1 = list()
-
-           tags_lnk = i.tags.replace('blob', 'raw')
-
-           r = requests.get(tags_lnk)
-           if r.status_code == 200:
-              r = r.text
-              r = r.split('\n')
-              for tag in r:
-                  if tag.replace(' ', ''):
-                     lst1.append(tag)
-
-           lst.append(lst1)
-           prs.append(lst)
+       papers = [[paper, paper.tags.all()] for paper in papers]
 
        paginator = Paginator(
-           prs,
+           papers,
            per_page=12
        )
        page_number = request.GET.get('page', 1)
@@ -133,18 +89,8 @@ def query(request, query):
 def open_portal(request, id_no):
 
     if Paper.objects.filter(id=id_no).exists():
-        obj = Paper.objects.get(id=id_no)
-        paper = [obj, []]
-
-        tags_lnk = obj.tags.replace('blob', 'raw')
-
-        r = requests.get(tags_lnk)
-        if r.status_code == 200:
-            r = r.text
-            r = r.split('\n')
-            for tag in r:
-                if tag.replace(' ', ''):
-                    paper[1].append(tag)
+        paper = Paper.objects.get(id=id_no)
+        paper = [paper, [paper.tags.all()]]
         
         Context = {
             'paper': paper,

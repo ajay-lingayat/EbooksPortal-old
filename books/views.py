@@ -10,25 +10,8 @@ def all_books(request):
     nav_actives = [None for i in range(7)]
     nav_actives[3] = 'active'
 
-    obj = Book.objects.all()
-
-    books = list()
-    for i in obj:
-        lst = [i]
-        lst1 = list()
-
-        tags_lnk = i.tags.replace('blob', 'raw')
-
-        r = requests.get(tags_lnk)
-        if r.status_code == 200:
-           r = r.text
-           r = r.split('\n')
-           for tag in r:
-               if tag.replace(' ', ''):
-                  lst1.append(tag)
-
-        lst.append(lst1)
-        books.append(lst)
+    books = Book.objects.all()
+    books = [[book, book.tags.all()] for book in books]
 
     paginator = Paginator(
         books,
@@ -69,47 +52,17 @@ def query(request, query):
 
     if query:
        obj = Book.objects.all()
-
        books = list()
        for book in obj:
-           tags_lnk = book.tags.replace('blob', 'raw')
-
-           r = requests.get(tags_lnk)
-           if r.status_code == 200:
-              r = r.text
-              tags = r.split('\n')
-
-              found = False
-              for tag in tags:
-                  tag = tag.strip()
-                  if query == tag.lower():
-                     books.append(book)
-                     found = True
-
-           if not found and query in book.title.lower():
+           if book.tags.filter(name=query).exists():
+              books.append(book)
+           elif query in book.title.lower():
               books.append(book)
 
-       
-       bks = list()
-       for i in books:
-           lst = [i]
-           lst1 = list()
-
-           tags_lnk = i.tags.replace('blob', 'raw')
-
-           r = requests.get(tags_lnk)
-           if r.status_code == 200:
-              r = r.text
-              r = r.split('\n')
-              for tag in r:
-                  if tag.replace(' ', ''):
-                     lst1.append(tag)
-
-           lst.append(lst1)
-           bks.append(lst)
+       books = [[book, book.tags.all()] for book in books]
 
        paginator = Paginator(
-           bks,
+           books,
            per_page=12
        )
        page_number = request.GET.get('page', 1)
@@ -137,17 +90,7 @@ def open_portal(request, id_no):
 
     if Book.objects.filter(id=id_no).exists():
         obj = Book.objects.get(id=id_no)
-        book = [obj, []]
-
-        tags_lnk = obj.tags.replace('blob', 'raw')
-
-        r = requests.get(tags_lnk)
-        if r.status_code == 200:
-            r = r.text
-            r = r.split('\n')
-            for tag in r:
-                if tag.replace(' ', ''):
-                    book[1].append(tag)
+        book = [obj, [obj.tags.all()]]
         
         Context = {
             'book': book,

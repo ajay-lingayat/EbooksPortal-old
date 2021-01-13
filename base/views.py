@@ -31,46 +31,12 @@ def home( request ):
     form = ContactForm()
 
     sections = BookSection.objects.all()
-    lst = list()
-    for section in sections:
-        books = section.books.all()
-        bks = list()
-        for book in books:
-            tag_lnk = book.tags.replace('blob', 'raw')
-            tags_lst = list()
-
-            r = requests.get(tag_lnk)
-            if r.status_code == 200:
-               tags = r.text.split('\n')
-               
-               for tag in tags:
-                   if str(tag).strip():
-                      tags_lst.append(tag)
-            bks.append([book, tags_lst])
-
-        lst.append([section, bks])
-    bk_sections = pick3(lst)
+    sections = [[section, [[book, book.tags.all()] for book in section.books.all()]] for section in sections]
+    bk_sections = pick3(sections)
 
     sections = PaperSection.objects.all()
-    lst = list()
-    for section in sections:
-        papers = Paper.objects.all()
-        prs = list()
-        for paper in papers:
-            tag_lnk = paper.tags.replace('blob', 'raw')
-            tags_lst = list()
-
-            r = requests.get(tag_lnk)
-            if r.status_code == 200:
-               tags = r.text.split('\n')
-               
-               for tag in tags:
-                   if str(tag).strip():
-                      tags_lst.append(tag)
-            prs.append([paper, tags_lst])
-        lst.append([section, prs])
-
-    pr_sections = pick3(lst)
+    sections = [[section, [[paper, paper.tags.all()] for paper in section.papers.all()]] for section in sections]
+    pr_sections = pick3(sections)
 
     Context = {
         'form': form,
