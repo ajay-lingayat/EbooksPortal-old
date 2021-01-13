@@ -47,8 +47,8 @@
 
                             <p class="lead">
                                 {% for tag in paper.1 %}
-                                <a href="/papers/q/{{ tag }}" class="badge badge-secondary">
-                                    {{ tag }}
+                                <a href="/papers/q/{{ tag.name }}" class="badge badge-secondary">
+                                    {{ tag.name }}
                                 </a>
                                 {% endfor %}
                             </p>
