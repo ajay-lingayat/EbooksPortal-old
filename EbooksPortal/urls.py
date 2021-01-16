@@ -24,7 +24,9 @@ urlpatterns = [
     path('books/', include('books.urls')),
     path('papers/', include('papers.urls')),
     path('accounts/', include('allauth.urls')),
-    path('api/', include('apis.urls')),
+    path('api/', include('base.api.urls')),
+    path('api/', include('books.api.urls')),
+    path('api/', include('papers.api.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
