@@ -1,59 +1,17 @@
 from django import forms
 from django.forms import TextInput, Textarea
+
 from allauth.account.forms import SignupForm
+
 from captcha.fields import ReCaptchaField
 
 
 class ContactForm(forms.Form):
-    firstname = forms.CharField(
-        max_length=15,
-        widget=TextInput(
-            attrs={
-                'placeholder': 'Firstname',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }
-        )
-    )
-    lastname = forms.CharField(
-        max_length=15,
-        widget=TextInput(
-            attrs={
-                'placeholder': 'Lastname',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }
-        )
-    )
-    email = forms.EmailField(
-        widget=TextInput(
-            attrs={
-                'placeholder': 'Email',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }
-        )
-    )
-    subject = forms.CharField(
-        max_length=50,
-        widget=TextInput(
-            attrs={
-                'placeholder': 'Subject',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }
-        )
-    )
-    message = forms.CharField(
-        max_length=500,
-        widget=Textarea(
-            attrs={
-                'placeholder': 'Message',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }
-        )
-    )
+    firstname = forms.CharField(max_length=15, widget=TextInput())
+    lastname = forms.CharField(max_length=15, widget=TextInput())
+    email = forms.EmailField(widget=TextInput())
+    subject = forms.CharField(max_length=50, widget=TextInput())
+    message = forms.CharField(max_length=500, widget=Textarea())
 
 
 class CustomSignUpForm(SignupForm):
