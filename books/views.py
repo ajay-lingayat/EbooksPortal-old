@@ -105,7 +105,7 @@ def mark_download(request):
         book_id = request.GET.get('bk_id', False)
         ans = False
         if book_id:
-            book = Book.objects.get(id=bk_id)
+            book = Book.objects.get(id=book_id)
             book.downloads += 1
             book.save()
             ans = True
