@@ -26,4 +26,4 @@ class Book(models.Model):
         db_table = 'ep_book'
         verbose_name = 'book'
         verbose_name_plural = 'books'
-        ordering = ('downloads')
+        ordering = ('downloads',)
