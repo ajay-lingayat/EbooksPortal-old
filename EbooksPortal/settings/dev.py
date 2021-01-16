@@ -14,9 +14,6 @@ SEED_MODELS = [
     'base.Section',
     'books.Book',
     'papers.Paper',
-    'authtoken.token',
-    'auth.group',
-    'auth.permission'
 ]
 
 
