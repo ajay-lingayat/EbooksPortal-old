@@ -20,26 +20,19 @@ def home( request ):
     book_downloads = sum([book.downloads for book in Book.objects.all()])
     paper_downloads = sum([paper.downloads for paper in Paper.objects.all()])
     total_downloads = book_downloads+paper_downloads
+    sections = Section.objects.all()
     form = ContactForm()
-    bk_sections = BookSection.objects.all()
-    pr_sections = PaperSection.objects.all()
 
     Context = {
         'form': form,
         'nav_actives': nav_actives,
-        'book_sections': bk_sections,
-        'paper_sections': pr_sections,
+        'sections': sections,
         'book_downloads': book_downloads,
         'total_downloads': total_downloads,
         'paper_downloads': paper_downloads,
     }
     t = loader.get_template('EbooksPortal/index.html')
-    return HttpResponse(
-        t.render(
-            Context,
-            request
-        )
-    )
+    return HttpResponse(t.render(Context, request))
 
 def contact( request ):
     form = ContactForm()
@@ -67,16 +60,10 @@ def contact( request ):
                [ settings.TO ],
                fail_silently=False,
            )
-           messages.success(
-               request,
-               'Message sent successfully!'
-           )
+           messages.success(request, 'Message sent successfully!')
        except Exception as e:
            print(e)
-           messages.warning(
-               request,
-               'Please check you internet connection!'
-           )
+           messages.warning(request, 'Please check you internet connection!')
 
        Context = {
            'form': form,
@@ -94,11 +81,7 @@ def contact( request ):
         }
 
     t = loader.get_template('EbooksPortal/contact.html')
-    return HttpResponse(
-        t.render(
-            Context, request
-        )
-    )
+    return HttpResponse(t.render(Context, request))
 
 
 def profile(request):
@@ -122,38 +105,23 @@ def profile(request):
        update = True
 
        if not first_name.isalpha():
-          messages.warning(
-              request,
-              'Invalid firstname!'
-          )
+          messages.warning(request, 'Invalid firstname!')
           update = False
 
        if not last_name.isalpha():
-          messages.warning(
-              request,
-              'Invalid lastname!'
-          )
+          messages.warning(request, 'Invalid lastname!')
           update = False
 
        if not username.isalnum() and username.isdigit():
-          messages.warning(
-              request,
-              'Invalid username!'
-          )
+          messages.warning(request, 'Invalid username!')
           update = False
 
        if User.objects.filter(username=username).exists() and user.username != username:
-          messages.warning(
-              request,
-              'Username is already taken!'
-          )
+          messages.warning(request, 'Username is already taken!')
           update = False
 
        if User.objects.filter(email=email).exists() and user.email != email:
-          messages.warning(
-              request,
-              'Email is already registered!'
-          )
+          messages.warning(request, 'Email is already registered!')
           update = False
 
        try:
@@ -164,16 +132,10 @@ def profile(request):
               user.username = username
               user.save()
 
-              messages.success(
-                  request,
-                  'Your profile has been updated!'
-              )
+              messages.success(request, 'Your profile has been updated!')
        except Exception as e:
            print(e)
-           messages.warning(
-               request,
-               'Invalid Information!'
-           )
+           messages.warning(request, 'Invalid Information!')
 
     Context ={
         'form': form,
@@ -185,9 +147,4 @@ def profile(request):
     }
     t = loader.get_template('EbooksPortal/profile.html')
 
-    return HttpResponse(
-        t.render(
-            Context,
-            request
-        )
-    )
+    return HttpResponse(t.render(Context, request))

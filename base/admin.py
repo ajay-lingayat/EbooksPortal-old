@@ -25,6 +25,19 @@ class TagAdmin(SimpleHistoryAdmin):
     search_fields = ['name']
     inlines = [BookInline, PaperInline]
 
+class SectionAdmin(SimpleHistoryAdmin):
+    list_display = ['id', 'name', 'category', 'no_of_books', 'no_of_papers']
+    list_filter = ['category']
+    history_list_display = ['status']
+    search_fields = ['id', 'name']
+    filter_horizontal = ('books', 'papers')
+
+    def no_of_books(self, obj):
+        return obj.books.all().count()
+    
+    def no_of_papers(self, obj):
+        return obj.papers.all().count()
+
 def make_staff_member(modeladmin, request, queryset):
     queryset.update(is_staff=True)
 make_staff_member.short_description = "Make selected users as staff members"
@@ -73,6 +86,7 @@ TokenAdmin.list_filter = ['created']
 TokenAdmin.date_hierarchy = 'created'
 
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Section, SectionAdmin)
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.unregister(EmailAddress)
