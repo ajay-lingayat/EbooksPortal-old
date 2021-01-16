@@ -32,11 +32,19 @@ class SectionAdmin(SimpleHistoryAdmin):
     search_fields = ['id', 'name']
     filter_horizontal = ('books', 'papers')
 
+    def get_queryset(self, request):
+        qs = super(SectionAdmin, self).get_queryset(request)
+        qs = qs.annotate(models.Count('books'))
+        qs = qs.annotate(models.Count('papers'))
+        return qs
+
     def no_of_books(self, obj):
-        return obj.books.all().count()
+        return obj.books__count
+    no_of_books.admin_order_field = 'books__count'
     
     def no_of_papers(self, obj):
-        return obj.papers.all().count()
+        return obj.papers__count
+    no_of_papers.admin_order_field = 'papers__count'
 
 def make_staff_member(modeladmin, request, queryset):
     queryset.update(is_staff=True)
