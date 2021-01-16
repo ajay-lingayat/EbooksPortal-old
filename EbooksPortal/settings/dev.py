@@ -11,10 +11,9 @@ INSTALLED_APPS += MODEL_APPS
 
 SEED_MODELS = [
     'base.Tag',
+    'base.Section',
     'books.Book',
-    'books.BookSection',
     'papers.Paper',
-    'papers.PaperSection',
     'authtoken.token',
     'auth.group',
     'auth.permission'
