@@ -87,7 +87,7 @@
     "model": "base.section",
     "pk": 1,
     "fields": {
-        "name": "SYCS Books",
+        "name": "TYCS Books",
         "category": "books",
         "books": [
             1,
