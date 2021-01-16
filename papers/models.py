@@ -28,19 +28,3 @@ class Paper(models.Model):
         db_table = 'ep_paper'
         verbose_name = 'paper'
         verbose_name_plural = 'papers'
-
-class PaperSection(models.Model):
-    name = models.CharField(max_length=50)
-    papers = models.ManyToManyField(
-        Paper,
-        blank=True
-    )
-    history = HistoricalRecords()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'ep_paper_section'
-        verbose_name = 'paper section'
-        verbose_name_plural = 'paper sections'

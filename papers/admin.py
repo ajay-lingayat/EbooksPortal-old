@@ -14,11 +14,4 @@ class PaperHistoryAdmin(SimpleHistoryAdmin):
     date_hierarchy = 'create_date'
     filter_horizontal = ('tags',)
 
-class PaperSectionHistoryAdmin(SimpleHistoryAdmin):
-    list_display = ['id', 'name']
-    history_list_display = ['status']
-    search_fields = ['id', 'name']
-    filter_horizontal = ('papers',)
-
 admin.site.register(Paper, PaperHistoryAdmin)
-admin.site.register(PaperSection, PaperSectionHistoryAdmin)
