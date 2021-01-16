@@ -84,6 +84,20 @@
     }
 },
 {
+    "model": "base.section",
+    "pk": 1,
+    "fields": {
+        "name": "SYCS Books",
+        "category": "books",
+        "books": [
+            1,
+            2,
+            3
+        ],
+        "papers": []
+    }
+},
+{
     "model": "books.book",
     "pk": 1,
     "fields": {
@@ -135,18 +149,6 @@
             10,
             11,
             12
-        ]
-    }
-},
-{
-    "model": "books.booksection",
-    "pk": 1,
-    "fields": {
-        "name": "SYCS Books",
-        "books": [
-            1,
-            2,
-            3
         ]
     }
 },
@@ -1037,6 +1039,78 @@
         "name": "Can view historical tag",
         "content_type": 24,
         "codename": "view_historicaltag"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 97,
+    "fields": {
+        "name": "Can add section",
+        "content_type": 25,
+        "codename": "add_section"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 98,
+    "fields": {
+        "name": "Can change section",
+        "content_type": 25,
+        "codename": "change_section"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 99,
+    "fields": {
+        "name": "Can delete section",
+        "content_type": 25,
+        "codename": "delete_section"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 100,
+    "fields": {
+        "name": "Can view section",
+        "content_type": 25,
+        "codename": "view_section"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+        "name": "Can add historical section",
+        "content_type": 26,
+        "codename": "add_historicalsection"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+        "name": "Can change historical section",
+        "content_type": 26,
+        "codename": "change_historicalsection"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+        "name": "Can delete historical section",
+        "content_type": 26,
+        "codename": "delete_historicalsection"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+        "name": "Can view historical section",
+        "content_type": 26,
+        "codename": "view_historicalsection"
     }
 }
 ]
