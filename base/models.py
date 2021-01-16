@@ -23,6 +23,7 @@ class Tag(models.Model):
         db_table = 'ep_tag'
         verbose_name = 'tag'
         verbose_name_plural = 'tags'
+        ordering = ('name')
 
 class Section(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -38,3 +39,4 @@ class Section(models.Model):
         db_table = 'ep_section'
         verbose_name = 'section'
         verbose_name_plural = 'sections'
+        ordering = ('name')

@@ -28,3 +28,4 @@ class Paper(models.Model):
         db_table = 'ep_paper'
         verbose_name = 'paper'
         verbose_name_plural = 'papers'
+        ordering = ('downloads')
