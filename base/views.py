@@ -148,3 +148,8 @@ def profile(request):
     t = loader.get_template('EbooksPortal/profile.html')
 
     return HttpResponse(t.render(Context, request))
+
+def about(request):
+    t = loader.get_template('EbooksPortal/about.html')
+    Context = {}
+    return HttpResponse(t.render(Context, request))
