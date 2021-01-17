@@ -31,7 +31,7 @@ def home( request ):
         'total_downloads': total_downloads,
         'paper_downloads': paper_downloads,
     }
-    t = loader.get_template('EbooksPortal/index.html')
+    t = loader.get_template('EbooksPortal/home.html')
     return HttpResponse(t.render(Context, request))
 
 def contact( request ):
