@@ -31,7 +31,7 @@ def home( request ):
         'total_downloads': total_downloads,
         'paper_downloads': paper_downloads,
     }
-    t = loader.get_template('EbooksPortal/home.html')
+    t = loader.get_template('base/home.html')
     return HttpResponse(t.render(Context, request))
 
 def contact( request ):
@@ -80,7 +80,7 @@ def contact( request ):
             'nav_actives': nav_actives,
         }
 
-    t = loader.get_template('EbooksPortal/contact.html')
+    t = loader.get_template('base/contact.html')
     return HttpResponse(t.render(Context, request))
 
 
@@ -145,11 +145,11 @@ def profile(request):
         'email': email,
         'username': username,
     }
-    t = loader.get_template('EbooksPortal/profile.html')
+    t = loader.get_template('base/profile.html')
 
     return HttpResponse(t.render(Context, request))
 
 def about(request):
-    t = loader.get_template('EbooksPortal/about.html')
+    t = loader.get_template('base/about.html')
     Context = {}
     return HttpResponse(t.render(Context, request))
