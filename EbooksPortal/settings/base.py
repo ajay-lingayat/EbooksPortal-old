@@ -192,7 +192,7 @@ RECAPTCHA_PROXY = {
 
 
 ACCOUNT_FORMS = {
-    'signup': 'portal.forms.CustomSignUpForm',
+    'signup': 'base.forms.CustomSignUpForm',
 }
 
 
