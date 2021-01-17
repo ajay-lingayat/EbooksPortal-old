@@ -1,7 +1,11 @@
 from django.contrib.auth.models import User, auth
+
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
+
 from base.models import *
+from books.api.serializers import BooksSerializer
+from papers.api.serializers import PapersSerializer
 
 class UsersSerializer(ModelSerializer):
     class Meta:
@@ -36,6 +40,9 @@ class TagsSerializer(ModelSerializer):
         fields = '__all__'
 
 class SectionsSerializer(ModelSerializer):
+    books = BooksSerializer(many=True, read_only=True)
+    papers = PapersSerializer(many=True, read_only=True)
+
     class Meta:
         model = Section
-        fields = '__all__'
+        fields = ('id', 'name', 'category', 'books', 'papers')
