@@ -17,7 +17,7 @@
     <br>
 
     <div class="container">
-        <form action="/books/" method="POST">
+        <form action="{% url 'book_text' %}" method="POST">
             <div class="input-group">
                 {% csrf_token %}
                 <input type="search" name="q" id="search" placeholder="search" class="form-control" required>
@@ -47,7 +47,7 @@
 
                             <p class="lead">
                                 {% for tag in book.tags.all %}
-                                <a href="/books/q/{{ tag.name }}" class="badge badge-secondary">
+                                <a href="{% url 'book_query' tag.name %}" class="badge badge-secondary">
                                     {{ tag.name }}
                                 </a>
                                 {% endfor %}
@@ -61,7 +61,7 @@
                                             Download
                                         </a>
                                     {% else %}
-                                        <a href="/accounts/login" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{% url 'accounts_login' %}" class="btn btn-sm btn-outline-secondary">
                                             Download
                                         </a>
                                     {% endif %}

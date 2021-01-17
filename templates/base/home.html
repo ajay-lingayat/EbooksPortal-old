@@ -24,7 +24,7 @@
                     A hub for free ebooks for computer science.
                 </p>
                 <p>
-                    <a href="/books/all" class="btn btn-info my-2">
+                    <a href="{% url 'all_books' %}" class="btn btn-info my-2">
                         explore more
                     </a>
                 </p>
@@ -53,7 +53,7 @@
 
                                         <p class="lead">
                                             {% for tag in book.tags.all %}
-                                            <a href="/books/q/{{ tag.name }}" class="badge badge-secondary">
+                                            <a href="{% url 'book_query' tag.name %}" class="badge badge-secondary">
                                                 {{ tag.name }}
                                             </a>
                                             {% endfor %}
@@ -67,7 +67,7 @@
                                                         Download
                                                     </a>
                                                 {% else %}
-                                                    <a href="/accounts/login" class="btn btn-sm btn-outline-secondary">
+                                                    <a href="{% url 'account_login' %}" class="btn btn-sm btn-outline-secondary">
                                                         Download
                                                     </a>
                                                 {% endif %}
@@ -103,7 +103,7 @@
 
                                         <p class="lead">
                                             {% for tag in paper.tags.all %}
-                                            <a href="/books/q/{{ tag.name }}" class="badge badge-secondary">
+                                            <a href="{% url 'paper_query' tag.name %}" class="badge badge-secondary">
                                                 {{ tag.name }}
                                             </a>
                                             {% endfor %}
@@ -117,7 +117,7 @@
                                                         Download
                                                     </a>
                                                 {% else %}
-                                                    <a href="/accounts/login" class="btn btn-sm btn-outline-secondary">
+                                                    <a href="{% url 'accounts_login' %}" class="btn btn-sm btn-outline-secondary">
                                                         Download
                                                     </a>
                                                 {% endif %}
@@ -186,7 +186,7 @@
 
         <div class="container justify-content-center">
 
-            <form action="/contact" method="POST">
+            <form action="{% url 'contact' %}" method="POST">
                 <div class="form-group">
                     {% csrf_token %}
 
