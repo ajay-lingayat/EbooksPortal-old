@@ -8,11 +8,11 @@ function mark_download( URL, redirectURL ){
                 window.location.href = redirectURL;
             }
             else {
-                snack('Something went wrong! Please try again.');
+                snack('Something went wrong!');
             }
         },
         error: function(error) {
-            snack('Something went wrong! Please try again.');
+            snack('Something went wrong!');
         }
     });
 }
