@@ -57,9 +57,9 @@ footer .foot a{
 	position: fixed !important;
 	color: #fff !important;
 	z-index: 999 !important;
-	top: 10px;
-	left: 10px;
-	width: 150px !important;
+	top: 88%;
+	width: auto !important;
+	margin-left: calc(50% - 100px);
 	font-size: large !important;
 	border: .5px solid #1d2124;
 }
