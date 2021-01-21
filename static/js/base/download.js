@@ -1,4 +1,4 @@
-function download( URL ){
+function mark_download( URL ){
     $.ajax({
         url: URL,
         data: {},
