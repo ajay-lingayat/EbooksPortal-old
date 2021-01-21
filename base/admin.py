@@ -61,7 +61,7 @@ make_superuser.short_description = "Make selected users as superuser"
 class CustomUserAdmin(UserAdmin):
     def __init__(self, *args, **kwargs):
         self.empty_value_display = 'NA'
-        self.actions += [make_staff_member, remove_from_staff, make_superuser]
+        self.actions = [make_staff_member, remove_from_staff, make_superuser]
         self.list_display = ('id',)+self.list_display
         self.list_display += ('date_joined', 'last_login')
         self.date_hierarchy = 'date_joined'
