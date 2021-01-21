@@ -20,7 +20,7 @@
 
     <div class="container justify-content-center">
 
-        <form name="frm" action="{% url 'contact' %}" method="POST">
+        <form name="frm" action="{% url 'base:contact' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
 
