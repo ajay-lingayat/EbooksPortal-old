@@ -2,9 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns =[
-    path('', views.text, name='paper_text'),
-    path('q/<str:query>', views.query, name='paper_query'),
-    path('all', views.all_papers, name='all_papers'),
-    path('open-portal/<int:id_no>', views.open_portal, name='paper_open_portal'),
-    path('mark-download', views.mark_download, name='paper_mark_download'),
+    path('', views.papers, name='papers'),
+    path('all/', views.all, name='all'),
+    path('open-portal/<int:paper>/', views.open_portal, name='open_portal'),
+    path('download/<int:paper>/', views.download, name='download'),
 ]
