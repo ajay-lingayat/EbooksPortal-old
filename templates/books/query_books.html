@@ -80,7 +80,7 @@
                                             Download
                                         </a>
                                     {% endif %}
-                                    <div onclick="copythis(window.location.hostname+'{% url 'books:open_portal' book.id %}')" class="btn btn-sm btn-outline-secondary copybtn">
+                                    <div onclick="copythis(window.location.protocol+'\\'+window.location.hostname+'{% url 'books:open_portal' book.id %}')" class="btn btn-sm btn-outline-secondary copybtn">
                                         Copy Link
                                     </div>
                                 </div>
