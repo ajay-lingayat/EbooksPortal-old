@@ -75,4 +75,4 @@ def download(request, book):
     except Exception as e:
         print('Error incrementing book download')
         print(e)
-        return JsonResponse({'ans': False, 'error': e})
+        return JsonResponse({'ans': False})
