@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
-from .models import *
+from .resources import *
 
-from allauth.account.models import EmailAddress
 from allauth.account.admin import EmailAddressAdmin
 from rest_framework.authtoken.admin import TokenAdmin
 from simple_history.admin import SimpleHistoryAdmin
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 AdminSite.site_header = 'EbooksPortal administration'
@@ -20,17 +20,19 @@ class BookInline(admin.TabularInline):
 class PaperInline(admin.TabularInline):
     model = Paper.tags.through
 
-class TagAdmin(SimpleHistoryAdmin):
+class TagAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name']
     search_fields = ['name']
     inlines = [BookInline, PaperInline]
+    resource_class = TagResource
 
-class SectionAdmin(SimpleHistoryAdmin):
+class SectionAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name', 'category', 'no_of_books', 'no_of_papers']
     list_filter = ['category']
     history_list_display = ['status']
     search_fields = ['id', 'name']
     filter_horizontal = ('books', 'papers')
+    resource_class = SectionResource
 
     def get_queryset(self, request):
         qs = super(SectionAdmin, self).get_queryset(request)
@@ -58,13 +60,14 @@ def make_superuser(modeladmin, request, queryset):
     queryset.update(is_superuser=True)
 make_superuser.short_description = "Make selected users as superuser"
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
     def __init__(self, *args, **kwargs):
         self.empty_value_display = 'NA'
         self.actions = [make_staff_member, remove_from_staff, make_superuser]
         self.list_display = ('id',)+self.list_display
         self.list_display += ('date_joined', 'last_login')
         self.date_hierarchy = 'date_joined'
+        self.resource_class = UserResource
         super(UserAdmin, self).__init__(*args, **kwargs)
 
 def verify_emails(modeladmin, request, queryset):
@@ -75,16 +78,18 @@ def unverify_emails(modeladmin, request, queryset):
     queryset.update(verified=False)
 unverify_emails.short_description = "Unverify selected email addresses"
 
-class CustomEmailAddressAdmin(EmailAddressAdmin):
+class CustomEmailAddressAdmin(EmailAddressAdmin, ImportExportModelAdmin):
     def __init__(self, *args, **kwargs):
         self.list_display = ('id',)+self.list_display
         self.actions = [verify_emails, unverify_emails]
         self.empty_value_display = 'NA'
+        self.resource_class = EmailAddressResource
         super(EmailAddressAdmin, self).__init__(*args, **kwargs)
         
-class CustomGroupAdmin(GroupAdmin):
+class CustomGroupAdmin(GroupAdmin, ImportExportModelAdmin):
     def __init__(self, *args, **kwargs):
         self.list_display = ('id',)+self.list_display
+        self.resource_class = GroupResource
         super(GroupAdmin, self).__init__(*args, **kwargs)
 
 TokenAdmin.list_display = ('pk',)+TokenAdmin.list_display
