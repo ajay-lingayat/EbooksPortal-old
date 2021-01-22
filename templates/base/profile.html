@@ -1,6 +1,6 @@
-
 {% extends 'base/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}
     {{ user.username }} | EbooksPortal
@@ -28,25 +28,25 @@
                         <label for="id_firstname" data-text="{{ first_name }}">
                             Firstname
                         </label>
-                        {{ form.firstname }}
+                        {% render_field form.firstname class="form-control" auto-complete="off" %}
                     </div>
                     <div class="col">
                         <label for="id_lastname" data-text="{{ last_name }}">
                             Lastname
                         </label>
-                        {{ form.lastname }}
+                        {% render_field form.lastname class="form-control" auto-complete="off" %}
                     </div>
                 </div>
 
                 <label for="id_email" data-text="{{ email }}">
                     Email
                 </label>
-                {{ form.email }}
+                {% render_field form.email class="form-control" auto-complete="off" %}
 
                 <label for="id_subject" data-text="{{ username }}">
                     Username
                 </label>
-                    {{ form.username }}
+                {% render_field form.username class="form-control" auto-complete="off" %}
 
                 <button type="submit" class="btn btn-dark">
                     Submit
