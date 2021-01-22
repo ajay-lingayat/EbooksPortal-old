@@ -14,5 +14,5 @@ def error404(request, exception):
 
 def error500(request, exception):
     t = loader.get_template('errors/500.html')
-    data = {'exception', exception}
+    data = {}
     return HttpResponse(t.render(data, request))
