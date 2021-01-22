@@ -10,6 +10,7 @@ from simple_history.models import HistoricalRecords
 SECTION_CATEGORY = [
     ('books', 'Books'),
     ('papers', 'Papers')
+    ('both', 'Books & Papers')
 ]
 
 class Tag(models.Model):
