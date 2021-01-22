@@ -31,6 +31,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-handler403 = 'base.errors.error403'
-handler404 = 'base.errors.error404'
-handler500 = 'base.errors.error500'
+# handler403 = 'base.errors.error403'
+# handler404 = 'base.errors.error404'
+# handler500 = 'base.errors.error500'
