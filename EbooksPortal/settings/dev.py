@@ -11,9 +11,20 @@ INSTALLED_APPS += MODEL_APPS
 
 SEED_MODELS = [
     'base.Tag',
-    'base.Section',
     'books.Book',
     'papers.Paper',
+    'base.Section',
+    'auth.User',
+    'account.EmailAddress',
+    'account.EmailConfirmation',
+    'base.HistoricalTag',
+    'base.HistoricalSection',
+    'books.HistoricalBook',
+    'papers.HistoricalPaper',
+    'socialaccount.SocialAccount',
+    'socialaccount.SocialApp',
+    'socialaccount.SocialApp_sites',
+    'socialaccount.SocialToken'
 ]
 
 

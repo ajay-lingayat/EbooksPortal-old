@@ -65,20 +65,17 @@ class Database:
             console.danger(e)
 
     def load_data(self):
-        found = os.path.isfile('seed.json')
-
-        if not found:
-            commands = ['manage.py', 'dumpdata'] + SEED_MODELS
-            commands += ['--format=json', '--indent=4']
-            command = f'python {" ".join(commands)} > seed.json'
-            console.info('COMMAND', command)
-            os.system(command)
-            found = os.path.isfile('seed.json')
-
-        if found:
+        if os.path.isfile('seed.json'):
             commands = ['manage.py', 'loaddata', 'seed.json']
             console.info('COMMAND', ' '.join(commands))
             main(commands=commands)
+
+    def dump_data(self):
+        commands = ['manage.py', 'dumpdata'] + SEED_MODELS
+        commands += ['--format=json', '--indent=4']
+        command = f'python {" ".join(commands)} > seed.json'
+        console.info('COMMAND', command)
+        os.system(command)
 
 
 if __name__ == "__main__":
@@ -96,5 +93,11 @@ if __name__ == "__main__":
     try:
         if "loaddata" in sys.argv:
             db.load_data()
+    except Exception as e:
+        console.danger(e)
+
+    try:
+        if "dumpdata" in sys.argv:
+            db.dump_data()
     except Exception as e:
         console.danger(e)
