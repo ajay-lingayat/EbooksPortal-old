@@ -64,6 +64,7 @@ INSTALLED_APPS = [
 
     'simple_history',
     'widget_tweaks',
+    'import_export',
 ]
 
 
