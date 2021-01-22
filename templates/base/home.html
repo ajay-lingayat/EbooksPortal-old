@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     
-                    {% if section.category == 'books' %}
+                    {% if section.books %}
                         {% for book in section.books.all %}
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
@@ -89,7 +89,9 @@
                                 </div>
                             </div>
                         {% endfor %}
-                    {% else %}
+                    {% endif %}
+                    
+                    {% if section.papers %}
                         {% for paper in section.papers.all %}
                             <div class="col-md-4">
                                 <div class="card mb-4 shadow-sm">
