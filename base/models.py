@@ -9,7 +9,7 @@ from simple_history.models import HistoricalRecords
 # Create your models here.
 SECTION_CATEGORY = [
     ('books', 'Books'),
-    ('papers', 'Papers')
+    ('papers', 'Papers'),
     ('both', 'Books & Papers')
 ]
 
