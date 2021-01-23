@@ -76,40 +76,7 @@ CREATE TABLE `ep_book` (
   `create_date` date NOT NULL,
   `downloads` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `ep_book_section`
---
-
-DROP TABLE IF EXISTS `ep_book_section`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ep_book_section` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `ep_book_section_books`
---
-
-DROP TABLE IF EXISTS `ep_book_section_books`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ep_book_section_books` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `booksection_id` int NOT NULL,
-  `book_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ep_book_section_books_booksection_id_book_id_165f2c73_uniq` (`booksection_id`,`book_id`),
-  KEY `ep_book_section_books_book_id_f6206fb0_fk_ep_book_id` (`book_id`),
-  CONSTRAINT `ep_book_section_book_booksection_id_8379ced9_fk_ep_book_s` FOREIGN KEY (`booksection_id`) REFERENCES `ep_book_section` (`id`),
-  CONSTRAINT `ep_book_section_books_book_id_f6206fb0_fk_ep_book_id` FOREIGN KEY (`book_id`) REFERENCES `ep_book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +95,7 @@ CREATE TABLE `ep_book_tags` (
   KEY `ep_book_tags_tag_id_602dcc1c_fk_ep_tag_id` (`tag_id`),
   CONSTRAINT `ep_book_tags_book_id_0d4dc663_fk_ep_book_id` FOREIGN KEY (`book_id`) REFERENCES `ep_book` (`id`),
   CONSTRAINT `ep_book_tags_tag_id_602dcc1c_fk_ep_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `ep_tag` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,39 +113,6 @@ CREATE TABLE `ep_paper` (
   `create_date` date NOT NULL,
   `downloads` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `ep_paper_section`
---
-
-DROP TABLE IF EXISTS `ep_paper_section`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ep_paper_section` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `ep_paper_section_papers`
---
-
-DROP TABLE IF EXISTS `ep_paper_section_papers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ep_paper_section_papers` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `papersection_id` int NOT NULL,
-  `paper_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ep_paper_section_papers_papersection_id_paper_id_5f7ba162_uniq` (`papersection_id`,`paper_id`),
-  KEY `ep_paper_section_papers_paper_id_fb3d17a1_fk_ep_paper_id` (`paper_id`),
-  CONSTRAINT `ep_paper_section_pap_papersection_id_6e9cad6b_fk_ep_paper_` FOREIGN KEY (`papersection_id`) REFERENCES `ep_paper_section` (`id`),
-  CONSTRAINT `ep_paper_section_papers_paper_id_fb3d17a1_fk_ep_paper_id` FOREIGN KEY (`paper_id`) REFERENCES `ep_paper` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -202,6 +136,60 @@ CREATE TABLE `ep_paper_tags` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `ep_section`
+--
+
+DROP TABLE IF EXISTS `ep_section`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ep_section` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ep_section_books`
+--
+
+DROP TABLE IF EXISTS `ep_section_books`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ep_section_books` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `section_id` int NOT NULL,
+  `book_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ep_section_books_section_id_book_id_000fab97_uniq` (`section_id`,`book_id`),
+  KEY `ep_section_books_book_id_f552600f_fk_ep_book_id` (`book_id`),
+  CONSTRAINT `ep_section_books_book_id_f552600f_fk_ep_book_id` FOREIGN KEY (`book_id`) REFERENCES `ep_book` (`id`),
+  CONSTRAINT `ep_section_books_section_id_7e785c22_fk_ep_section_id` FOREIGN KEY (`section_id`) REFERENCES `ep_section` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `ep_section_papers`
+--
+
+DROP TABLE IF EXISTS `ep_section_papers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ep_section_papers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `section_id` int NOT NULL,
+  `paper_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ep_section_papers_section_id_paper_id_b4073861_uniq` (`section_id`,`paper_id`),
+  KEY `ep_section_papers_paper_id_17d66f5e_fk_ep_paper_id` (`paper_id`),
+  CONSTRAINT `ep_section_papers_paper_id_17d66f5e_fk_ep_paper_id` FOREIGN KEY (`paper_id`) REFERENCES `ep_paper` (`id`),
+  CONSTRAINT `ep_section_papers_section_id_eb8d1e99_fk_ep_section_id` FOREIGN KEY (`section_id`) REFERENCES `ep_section` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `ep_tag`
 --
 
@@ -213,7 +201,7 @@ CREATE TABLE `ep_tag` (
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,4 +221,4 @@ CREATE TABLE `ep_tag` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-14 23:43:20
+-- Dump completed on 2021-01-23  9:05:59
