@@ -57,7 +57,7 @@ def contact( request ):
                subject,
                mail_message,
                settings.EMAIL_HOST_USER,
-               [ settings.TO ],
+               settings.TO,
                fail_silently=False,
            )
            messages.success(request, 'Message sent successfully!')
