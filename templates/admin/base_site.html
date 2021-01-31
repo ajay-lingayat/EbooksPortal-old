@@ -10,5 +10,9 @@
 {% block nav-global %}{% endblock %}
 
 {% block extrahead %}
-    <link href="{% static '/css/admin/dark.css' %}" rel="stylesheet">
+    {% if user.is_authenticated %}
+        {% if user.user_profile.theme == 'dark' %}
+            <link href="{% static '/css/admin/dark.css' %}" rel="stylesheet">
+        {% endif %}
+    {% endif %}
 {% endblock %}
