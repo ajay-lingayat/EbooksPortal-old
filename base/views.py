@@ -153,3 +153,11 @@ def about(request):
     t = loader.get_template('base/about.html')
     Context = {}
     return HttpResponse(t.render(Context, request))
+
+def change(request):
+    theme = request.GET.get('theme', False)
+    if theme:
+        profile = Profile.objects.get(user=request.user)
+        profile.theme = theme
+        profile.save()
+    return redirect('/profile')

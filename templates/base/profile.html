@@ -55,6 +55,24 @@
                 </label>
                 {% render_field form.username class="form-control" auto-complete="off" %}
 
+                <label for="theme">Select Theme</label>
+                <select name="theme" class="form-control" onchange="location.href = '{% url 'base:change' %}?theme='+this.value;">
+
+                    {% if user.user_profile.theme == 'light' %}
+                        <option value="light" selected>Light</option>
+                    {% else %}
+                        <option value="light">Light</option>
+                    {% endif %}
+                    
+                    {% if user.user_profile.theme == 'dark' %}
+                        <option value="dark" selected>Dark</option>
+                    {% else %}
+                        <option value="dark">Dark</option>
+                    {% endif %}
+
+                </select>
+                <br>
+
                 <button type="submit" class="btn btn-dark">
                     Submit
                 </button>
