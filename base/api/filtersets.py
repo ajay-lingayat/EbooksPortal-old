@@ -48,6 +48,15 @@ class EndUsersFilter(rest_framework.FilterSet):
             'last_name': ['icontains']
         }
 
+class ProfilesFilter(rest_framework.FilterSet):
+    user = rest_framework.NumberFilter(field_name='user__id', lookup_expr='exact')
+    class Meta:
+        model = Profile
+        fields = {
+            'id': ['exact'],
+            'theme': ['exact']
+        }
+
 class TagsFilter(rest_framework.FilterSet):
     class Meta:
         model = Tag

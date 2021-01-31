@@ -37,6 +37,11 @@ class EndUsersViewset(ModelViewSet):
         queryset = User.objects.filter(is_staff=False)
         return queryset
 
+class ProfilesViewset(ModelViewSet):
+    serializer_class = ProfilesSerializer
+    filterset_class = ProfilesFilter
+    queryset = Profile.objects.all()
+
 class TagsViewset(ModelViewSet):
     serializer_class = TagsSerializer
     filterset_class = TagsFilter

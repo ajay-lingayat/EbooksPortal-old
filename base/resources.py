@@ -2,6 +2,11 @@ from import_export import resources
 from .models import *
 from allauth.account.models import EmailAddress
 
+class ProfileResource(resources.ModelResource):
+    class Meta:
+        model = Profile
+        fields = ('id', 'user', 'theme')
+
 class TagResource(resources.ModelResource):
     class Meta:
         model = Tag

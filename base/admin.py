@@ -14,6 +14,14 @@ AdminSite.site_header = 'EbooksPortal administration'
 AdminSite.site_title = 'EbooksPortal administration'
 AdminSite.enable_nav_sidebar = False
 
+class ProfileAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
+    list_display = ['id', 'user', 'theme']
+    list_filter = ['theme']
+    history_list_display = ['status']
+    search_fields = ['user__username']
+    raw_id_fields = ['user']
+    resource_class = ProfileResource
+
 class BookInline(admin.TabularInline):
     model = Book.tags.through
 
@@ -30,7 +38,7 @@ class SectionAdmin(SimpleHistoryAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name', 'category', 'no_of_books', 'no_of_papers']
     list_filter = ['category']
     history_list_display = ['status']
-    search_fields = ['id', 'name']
+    search_fields = ['name']
     filter_horizontal = ('books', 'papers')
     resource_class = SectionResource
 
@@ -66,6 +74,7 @@ class CustomUserAdmin(UserAdmin, ImportExportModelAdmin):
         self.actions = [make_staff_member, remove_from_staff, make_superuser]
         self.list_display = ('id',)+self.list_display
         self.list_display += ('date_joined', 'last_login')
+        self.list_filter += ('date_joined', 'last_login')
         self.date_hierarchy = 'date_joined'
         self.resource_class = UserResource
         super(UserAdmin, self).__init__(*args, **kwargs)
@@ -98,6 +107,7 @@ TokenAdmin.raw_id_fields = ['user']
 TokenAdmin.list_filter = ['created']
 TokenAdmin.date_hierarchy = 'created'
 
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Section, SectionAdmin)
 admin.site.unregister(User)

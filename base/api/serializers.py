@@ -34,6 +34,12 @@ class EndUsersSerializer(ModelSerializer):
         fields = ['id', 'last_login', 'username',
                   'first_name', 'last_name', 'email', 'date_joined' ]
 
+class ProfilesSerializer(ModelSerializer):
+    user = UsersSerializer(read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['id', 'user', 'theme']
+
 class TagsSerializer(ModelSerializer):
     class Meta:
         model = Tag
