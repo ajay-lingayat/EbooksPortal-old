@@ -1,0 +1,41 @@
+html, body {
+    background-color: #393939 !important;
+}
+.text-center {
+    color: #ddd !important;
+}
+.contact {
+    background-color: #393939 !important;
+}
+.contact label {
+    color: #ddd !important;
+}
+.form-control {
+    color: #fff !important;
+    background-color: #495057 !important;
+}
+.form-control:focus {
+    color: #fff !important;
+    background-color: #495057 !important;
+}
+.btn-dark {
+    color: #343a40 !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
+    border-color: #fff !important;
+}
+.btn-dark:hover {
+    color: #343a40 !important;
+    background-color: #ddd !important;
+    border-color: #ddd !important;
+    border-color: #ddd !important;
+}
+::placeholder {
+    color: #ddd !important;
+}
+#footer.bg-light {
+    background-color: #3d3d3d!important;
+}
+#footer .foot, #footer .foot a {
+    color: #fff !important;
+}

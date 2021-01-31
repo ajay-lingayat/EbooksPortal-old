@@ -1,1 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
+{% block links %}
+{% if user.is_authenticated %}
+    {% if user.user_profile.theme == 'dark' %}
+        <link rel="stylesheet" type="text/css" href="{% static '/css/base/about_dark.css' %}">
+    {% endif %}
+{% endif %}
+{% endblock %}

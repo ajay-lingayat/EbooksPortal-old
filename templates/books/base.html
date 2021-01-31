@@ -17,7 +17,13 @@
     <link rel="stylesheet" href="{% static '/css/books/base.css' %}">
 
     {% block links %}
-    {% endblock %}
+	{% endblock %}
+	
+	{% if user.is_authenticated %}
+		{% if user.user_profile.theme == 'dark' %}
+			<link rel="stylesheet" type="text/css" href="{% static '/css/books/dark.css' %}">
+		{% endif %}
+	{% endif %}
 
 </head>
 <body>

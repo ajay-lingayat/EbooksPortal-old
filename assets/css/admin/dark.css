@@ -1,0 +1,45 @@
+html, body, tr, #recent-actions-module, #content-related, .module, 
+#changelist .actions, #changelist .actions select option, 
+#changelist-filter, #changelist #toolbar form #searchbar, input, 
+.submit-row, .selector-available h2, .selector .selector-filter, .selector select {
+    background-color: #393939 !important;
+}
+th, td, .form-row, .submit-row, .toplinks, .paginator {
+    border-color: #393939 !important;
+}
+th a, td a, #recent-actions-module h2, #recent-actions-module a, th, td, 
+.module li a , #changelist .actions, #changelist .actions select, #content h1, 
+#changelist-filter h3, #changelist #toolbar form #searchbar, label, input, div#id_password, 
+.selector-available h2, .selector select {
+    color: #ccc !important;
+    outline: none;
+}
+#recent-actions-module h3 {
+    color: #aaa !important;
+}
+#toolbar {
+    border-top: 1px solid #393939 !important;
+    border-bottom: 1px solid #393939 !important;
+    background-color: #393939 !important;
+}
+#changelist .paginator {
+    background-color: #393939 !important;
+    color: #ddd !important;
+}
+th a:hover {
+    background-color: #999 !important;
+    color: #eee !important;
+}
+.submit-row input[type="submit"] {
+    background-color: #ddd !important;
+    color: #393939 !important;
+}
+li.selected {
+    border-left: 5px solid #ccc !important;
+}
+thead th, tr:nth-child(even) {
+    background-color: #697075 !important;
+}
+::placeholder {
+    color: #697075 !important;
+}

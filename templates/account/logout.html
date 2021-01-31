@@ -8,6 +8,13 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static '/css/account/logout.css' %}">
+
+    {% if user.is_authenticated %}
+		{% if user.user_profile.theme == 'dark' %}
+			<link rel="stylesheet" type="text/css" href="{% static '/css/account/logout_dark.css' %}">
+		{% endif %}
+    {% endif %}
+    
 {% endblock %}
 
 {% block navbar %}

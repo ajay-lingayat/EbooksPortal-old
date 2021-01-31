@@ -8,6 +8,13 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static '/css/base/profile.css' %}">
+
+{% if user.is_authenticated %}
+    {% if user.user_profile.theme == 'dark' %}
+        <link rel="stylesheet" type="text/css" href="{% static '/css/base/profile_dark.css' %}">
+    {% endif %}
+{% endif %}
+
 {% endblock %}
 
 {% block content %}

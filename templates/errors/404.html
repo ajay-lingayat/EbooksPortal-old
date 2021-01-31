@@ -7,6 +7,13 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static '/css/errors/404.css' %}">
+
+{% if user.is_authenticated %}
+    {% if user.user_profile.theme == 'dark' %}
+        <link rel="stylesheet" type="text/css" href="{% static '/css/errors/dark.css' %}">
+    {% endif %}
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
