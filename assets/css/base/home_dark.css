@@ -1,7 +1,7 @@
 html, body {
     background-color: #393939 !important;
 }
-main .jumbotron {
+main .jumbotron, .msg-container {
     background-color: #393939 !important;
 }
 main .jumbotron .container h1 {
